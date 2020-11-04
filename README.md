@@ -19,7 +19,7 @@ https://github.com/dan2097/opsin
 $ git clone https://github.com/Kohulan/SMILES-to-IUPAC-Translator.git
 $ cd SMILES-to-IUPAC-Translator
 ```
-- Download the model from [here](https://storage.cloud.google.com/tpu-test-koh/iupac/Trained_model/) and save it under Trained_model directory 
+- Download the model from [here](https://storage.googleapis.com/iupac_models_trained/Trained_model/Trained_model.zip) and uncompress the zipped folder and save the contents Trained_model directory 
 ```
 $ conda create --name SMILES-to-IUPAC-Translator python=3.7.9
 $ conda activate SMILES-to-IUPAC-Translator
