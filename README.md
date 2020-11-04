@@ -13,6 +13,8 @@ https://www.nltk.org/_modules/nltk/translate/bleu_score.html
 OPSIN: Open Parser for Systematic IUPAC nomenclature
 https://github.com/dan2097/opsin
 
+### OS-Support: Linux and MACOS (On windows make sure you have installed and configured tensorflow properly)
+
 # Usage
 
 ```
