@@ -21,10 +21,10 @@ $ cd SMILES-to-IUPAC-Translator
 ```
 - Download the model from [here](https://storage.googleapis.com/iupac_models_trained/Trained_model/Trained_model.zip) and uncompress the zipped folder and save the contents Trained_model directory 
 ```
-$ conda create --name SMILES-to-IUPAC-Translator python=3.7.9
-$ conda activate SMILES-to-IUPAC-Translator
+$ conda create --name STOUT python=3.7.9
+$ conda activate STOUT
 $ conda install pip
-$ pip install tensorflow-gpu==2.3.0 pillow matplotlib unicodedata #Install tensorflow==2.3.0 if you do not have a nVidia GPU
+$ pip install tensorflow-gpu==2.3.0 selfies matplotlib unicodedata2 #Install tensorflow==2.3.0 if you do not have a nVidia GPU
 $ python3 evaluate_iupac.py 'INPUT SMILES STRING'
 e.g. python3 evaluate_iupac.py 'CN1C=NC2=C1C(=O)N(C(=O)N2C)C'
 ```
