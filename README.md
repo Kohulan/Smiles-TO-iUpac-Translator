@@ -28,7 +28,7 @@ $ conda activate STOUT
 $ conda install pip
 $ pip install tensorflow-gpu==2.3.0 selfies matplotlib unicodedata2 #Install tensorflow==2.3.0 if you do not have a nVidia GPU
 $ python3 STOUT_V_0.5 -help #Use for help
-e.g. python3 evaluate_iupac.py 'CN1C=NC2=C1C(=O)N(C(=O)N2C)C'
+e.g. python3 STOUT_V_0.5.py 'CN1C=NC2=C1C(=O)N(C(=O)N2C)C'
 ```
 
 # STOUT is part of DECIMER project
