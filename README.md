@@ -20,16 +20,18 @@ https://github.com/dan2097/opsin
 ```
 $ git clone https://github.com/Kohulan/SMILES-to-IUPAC-Translator.git
 $ cd SMILES-to-IUPAC-Translator
-```
-- Download the model from [here](https://storage.googleapis.com/iupac_models_trained/Trained_model/Trained_model.zip) and uncompress the zipped folder and save the contents Trained_model directory 
-```
 $ conda create --name STOUT python=3.7.9
 $ conda activate STOUT
 $ conda install pip
 $ pip install tensorflow-gpu==2.3.0 selfies matplotlib unicodedata2 #Install tensorflow==2.3.0 if you do not have a nVidia GPU
-$ python3 STOUT_V_1.0 --help #Use for help
-e.g. python3 STOUT_V_1.0.py 'CN1C=NC2=C1C(=O)N(C(=O)N2C)C'
+$ python3 STOUT_V_2.0 --help #Use for help
+
+e.g.: 
+
+python3 STOUT_V_2.0.py 'CN1C=NC2=C1C(=O)N(C(=O)N2C)C' -> SMILES to IUPAC
+python3 STOUT_V_1.0.py --iupac '1,3,7-trimethyl-2,3,6,7-tetrahydro-1H-purine-2,6-dione' -> IUPAC to SMILES
 ```
+- Download the model from [here](https://storage.googleapis.com/iupac_models_trained/Trained_model/Trained_model.zip)
 
 # STOUT is part of DECIMER project
 [![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/raw/master/assets/DECIMER.gif)](https://kohulan.github.io/Decimer-Official-Site/)
