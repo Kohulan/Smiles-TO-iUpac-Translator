@@ -16,10 +16,12 @@ os.environ["CUDA_VISIBLE_DEVICES"]="2"
 
 def main():
   
+  # Declaration of Global arguements used through out different functions.
   global max_length_targ,max_length_inp,inp_lang,targ_lang,embedding_dim,units,encoder,decoder
   global model_size
   model_size='30'
 
+  # Arguement to invoke help.
   if len(sys.argv) < 3 or sys.argv[1] == "--help" or sys.argv[1] == "--h":
 
     print("\n Usage for 1 SMILES string:\n python STOUT_V_2.0.py --smiles input_SMILES\n\n",
@@ -34,6 +36,7 @@ def main():
       "e.g.: python STOUT_V_2.0.py --smiles input_SMILES 60\n\n")
     sys.exit()
 
+  #Argument to run STOUT for a given SMILES string.
   elif (len(sys.argv) == 3 or len(sys.argv) == 4) and sys.argv[1] == '--smiles':
     smiles_string = sys.argv[2]
     if len(sys.argv) == 4 and (sys.argv[3] == '30' or sys.argv[3] == '60'):
@@ -47,7 +50,7 @@ def main():
 
     print('\nPredicted translation: {}'.format(iupac_name.replace(" ","").replace("<end>","")),flush=True)
 
-
+  # Arguement to run STOUT on multiple SMILES string on a given inputfile and creats a output file that the user desired. 
   elif (len(sys.argv) == 4 or len(sys.argv) == 5) and sys.argv[1] == '--STI':
     if len(sys.argv) == 5 and (sys.argv[4] == '30' or sys.argv[4] == '60'):
       model_size = sys.argv[4]
@@ -61,7 +64,7 @@ def main():
 
     print("\nBatch mode completed, result saved in: ",out)
 
-
+  # Arguement to invoke OPSIN to check the translations done by STOUT.
   elif (len(sys.argv) == 4 or len(sys.argv) == 5) and (sys.argv[1] == '--STI_check'):
     if len(sys.argv) == 5 and (sys.argv[4] == '30' or sys.argv[4] == '60'):
       model_size = sys.argv[4]
@@ -73,8 +76,9 @@ def main():
 
     check_translation(input_file,output_file)
 
-# Arguements for reverse translation
+# Arguements for reverse translation.
 
+  # Argurment to invoke STOUT to translate a given IUPAC name to a SMILES string.
   elif (len(sys.argv) == 3 or len(sys.argv) == 4) and sys.argv[1] == '--iupac':
     iupac_string_input = sys.argv[2]
     if len(sys.argv) == 4 and (sys.argv[3] == '30' or sys.argv[3] == '60'):
@@ -86,6 +90,7 @@ def main():
 
     print('\nPredicted translation: {}'.format(selfies.decoder(SELFIES.replace(" ","").replace("<end>",""))),flush=True)
 
+  # Arguement to invoke STOUT on multiple IUPAC names on a given inputfile and creats a output file with translated SMILES.
   elif (len(sys.argv) == 4 or len(sys.argv) == 5) and sys.argv[1] == '--ITS':
     if len(sys.argv) == 5 and (sys.argv[4] == '30' or sys.argv[4] == '60'):
       model_size = sys.argv[4]
@@ -99,17 +104,19 @@ def main():
 
     print("\nBatch mode completed, result saved in: ",out)
 
+  # Call help, if the user arguments did not satisfy the rules.
   else:
     print(len(sys.argv))
     print("\nSee help using python3 STOUT_V_0.5.py --help")
 
    
 
-# Converts the unicode file to ascii
+# Converts the unicode file to ascii.
 def unicode_to_ascii(s):
   return ''.join(c for c in unicodedata.normalize('NFD', s)
       if unicodedata.category(c) != 'Mn')
 
+# Preprocess the sentences to feed into model.
 def preprocess_sentence(w):
   w = unicode_to_ascii(w.strip())
   w = re.sub(r"([?.!,¿])", r" \1 ", w)
@@ -118,6 +125,7 @@ def preprocess_sentence(w):
   w = '<start> ' + w + ' <end>'
   return w
 
+# Main command to translate the SELFIES to IUPAC name and the IUPAC name to SELFIES.
 def evaluate(sentence):
   sentence = preprocess_sentence(sentence)
 
@@ -153,10 +161,12 @@ def evaluate(sentence):
 
   return result, sentence
 
+# Translate funtion to invoke the evaluate funtion.
 def translate(sentence):
   result, sentence = evaluate(sentence)
   return result
 
+# Downloads the model and unzips the file downloaded, if the model is not present on the working directory.
 def download_trained_weights(model_url,model_path,model_size, verbose=1):
 
   #Download trained models
@@ -167,6 +177,7 @@ def download_trained_weights(model_url,model_path,model_size, verbose=1):
     print("... done downloading trained model!")
     subprocess.run(["unzip", "Trained_models.zip"])
 
+# Loads the appropriate model and resets the path for 30/60 Mio dataset related tokenizers(SMILES to IUPAC).
 def check_model(model_size):
   #load lengths
   max_length_targ = pickle.load(open("important_assets/"+model_size+"_mil/forward/max_length_targ.pkl","rb"))
@@ -200,6 +211,7 @@ def check_model(model_size):
 
   return max_length_targ,max_length_inp,inp_lang,targ_lang,embedding_dim,units,encoder,decoder
 
+# To run translation on multiple SMILES to generate IUPAC names.
 def batch_mode(input_file,output_file):
 
   outfile = open(output_file,"w")
@@ -215,6 +227,7 @@ def batch_mode(input_file,output_file):
 
   return output_file
 
+# Invoke OPSIN to check the translation by reverse translating them.
 def check_translation(input_file,output_file):
 
   out_file = batch_mode(input_file,output_file)
@@ -224,6 +237,7 @@ def check_translation(input_file,output_file):
 
 # Functions for reverse translation
 
+# Loads the appropriate model and resets the path for 30/60 Mio dataset related tokenizers(IUPAC to SMILES).
 def check_model_reverse(model_size):
   #load lengths
   max_length_targ = pickle.load(open("important_assets/"+model_size+"_mil/reverse/max_length_targ.pkl","rb"))
@@ -257,6 +271,7 @@ def check_model_reverse(model_size):
 
   return max_length_targ,max_length_inp,inp_lang,targ_lang,embedding_dim,units,encoder,decoder
 
+# To run translation on multiple IUPAC names to generate SMILES.
 def batch_mode_reverse(input_file,output_file):
 
   outfile = open(output_file,"w")
@@ -271,6 +286,7 @@ def batch_mode_reverse(input_file,output_file):
 
   return output_file
 
+# Modify a IUPAC name before feeding it into the model.
 def get_modified_iupac(iupac_string):
   modified_iupac = (iupac_string.replace(","," , ").replace("."," . ")
     .replace("("," ( ").replace(")"," ) ")
