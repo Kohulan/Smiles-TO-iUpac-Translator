@@ -1,7 +1,7 @@
-import sys
+import io
 import os
 import urllib
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+#os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 import tensorflow as tf
 
@@ -12,70 +12,6 @@ import re
 import selfies
 import subprocess
 
-os.environ["CUDA_VISIBLE_DEVICES"]="2"
-
-def main():
-  
-  global max_length_targ,max_length_inp,inp_lang,targ_lang,embedding_dim,units,encoder,decoder
-  global model_size
-  model_size='30'
-
-  if len(sys.argv) < 3 and sys.argv[1] == "--help" or sys.argv[1] == "--h":
-
-    print("\n Usage for 1 SMILES string:\n python STOUT_V_0.5.py --smiles input_SMILES\n\n",
-      "For multiple Smiles:\n python STOUT_V_0.5.py --STI input_file outputfile\n\n",
-      "To check the translation accuracy you can re-translate the IUPAC names back to SMILES string using OPSIN.\n",
-      "Use this command for retranslation:\n python STOUT_V_0.5.py --STI_check input_file outputfile 30\n\n",
-      "The system set to default to choose the model trainined on 30 Mio data, to choose the other model available,\n",
-      "at the end of each command add 30 or 60 afer a space:\n",
-      "e.g.: python STOUT_V_0.5.py --smiles input_SMILES 60\n\n")
-    sys.exit()
-
-  elif (len(sys.argv) == 3 or len(sys.argv) == 4) and sys.argv[1] == '--smiles':
-    smiles_string = sys.argv[2]
-    if len(sys.argv) == 4 and (sys.argv[3] == '30' or sys.argv[3] == '60'):
-      model_size = sys.argv[3]
-
-    max_length_targ,max_length_inp,inp_lang,targ_lang,embedding_dim,units,encoder,decoder =check_model(model_size)
-
-    canonical_smiles = subprocess.check_output(['java', '-cp', 'Java_dependencies/cdk-2.1.1.jar:.' ,'SMILEStoCanonicalSMILES',smiles_string])
-
-    iupac_name = translate(selfies.encoder(canonical_smiles.decode('utf-8').strip()).replace("][","] ["))
-
-    print('\nPredicted translation: {}'.format(iupac_name.replace(" ","").replace("<end>","")),flush=True)
-
-
-  elif (len(sys.argv) == 4 or len(sys.argv) == 5) and sys.argv[1] == '--STI':
-    if len(sys.argv) == 5 and (sys.argv[4] == '30' or sys.argv[4] == '60'):
-      model_size = sys.argv[4]
-    
-    input_file = sys.argv[2]
-    output_file = sys.argv[3]
-
-    max_length_targ,max_length_inp,inp_lang,targ_lang,embedding_dim,units,encoder,decoder =check_model(model_size)
-
-    out = batch_mode(input_file,output_file)
-
-    print("\nBatch mode completed, result saved in: ",out)
-
-
-  elif (len(sys.argv) == 4 or len(sys.argv) == 5) and (sys.argv[1] == '--STI_check'):
-    if len(sys.argv) == 5 and (sys.argv[4] == '30' or sys.argv[4] == '60'):
-      model_size = sys.argv[4]
-
-    input_file = sys.argv[2]
-    output_file = sys.argv[3]
-
-    max_length_targ,max_length_inp,inp_lang,targ_lang,embedding_dim,units,encoder,decoder =check_model(model_size)
-
-    check_translation(input_file,output_file)
-
-
-  else:
-    print(len(sys.argv))
-    print("\nSee help using python3 STOUT_V_0.5.py --help")
-
-   
 
 # Converts the unicode file to ascii
 def unicode_to_ascii(s):
@@ -90,7 +26,9 @@ def preprocess_sentence(w):
   w = '<start> ' + w + ' <end>'
   return w
 
-def evaluate(sentence):
+def evaluate(sentence,model_size):
+  max_length_targ,max_length_inp,inp_lang,targ_lang,embedding_dim,units,encoder,decoder = check_model(model_size)
+
   sentence = preprocess_sentence(sentence)
 
   inputs = [inp_lang.word_index[i] for i in sentence.split(' ')]
@@ -125,12 +63,13 @@ def evaluate(sentence):
 
   return result, sentence
 
-def translate(sentence):
-  result, sentence = evaluate(sentence)
+def translate(sentence,model_size):
+  result, sentence = evaluate(sentence,model_size)
+
+  #print('Input: %s' % (selfies.decoder(sentence.replace(" ","").replace("<start>","").replace("<end>",""))),flush=True)
   return result
 
 def download_trained_weights(model_url,model_path,model_size, verbose=1):
-
   #Download trained models
   if verbose > 0:
     print("Downloading trained model to " + model_path + " ...")
@@ -172,8 +111,7 @@ def check_model(model_size):
 
   return max_length_targ,max_length_inp,inp_lang,targ_lang,embedding_dim,units,encoder,decoder
 
-
-def batch_mode(input_file,output_file):
+def batch_mode(input_file,output_file,model_size):
 
   outfile = open(output_file,"w")
 
@@ -181,7 +119,7 @@ def batch_mode(input_file,output_file):
     for i,line in enumerate(f):
       smiles_string = line.strip()
       canonical_smiles = subprocess.check_output(['java', '-cp', 'Java_dependencies/cdk-2.1.1.jar:.' ,'SMILEStoCanonicalSMILES',smiles_string])
-      iupac_name = translate(selfies.encoder(canonical_smiles.decode('utf-8').strip()).replace("][","] ["))
+      iupac_name = translate(selfies.encoder(canonical_smiles.decode('utf-8').strip()).replace("][","] ["),model_size)
       outfile.write(iupac_name.replace(" ","").replace("<end>","")+"\n")
 
   outfile.close()
@@ -191,9 +129,5 @@ def batch_mode(input_file,output_file):
 def check_translation(input_file,output_file):
 
   out_file = batch_mode(input_file,output_file)
-  print("\nRetranslated SMILES are saved in Retranslated_smiles file")
+  print("Retranslated SMILES are saved in Retranslated_smiles file")
   subprocess.run(['java', '-jar', 'Java_dependencies/opsin-2.5.0-jar-with-dependencies.jar' ,'-osmi',out_file,'Re-translated_smiles'])
-
-
-if __name__ == '__main__':
-  main()
