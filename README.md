@@ -17,6 +17,14 @@ https://github.com/dan2097/opsin
 
 # Usage
 
+## We suggest to use STOUT inside a Conda environment, which makes the dependencies to install easily.
+### Conda can be downloaded as part of the [Anaconda](https://www.anaconda.com/) or the [Miniconda](https://conda.io/en/latest/miniconda.html) plattforms (Python 3.7). We recommend to install miniconda3. Using Linux you can get it with:
+```
+$ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+$ bash Miniconda3-latest-Linux-x86_64.sh
+```
+## How to use STOUT
+
 ```
 $ git clone https://github.com/Kohulan/SMILES-to-IUPAC-Translator.git
 $ cd SMILES-to-IUPAC-Translator
