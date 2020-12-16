@@ -28,8 +28,8 @@ $ python3 STOUT_V_2.0 --help #Use for help
 
 e.g.: 
 
-python3 STOUT_V_2.0.py 'CN1C=NC2=C1C(=O)N(C(=O)N2C)C' -> SMILES to IUPAC
-python3 STOUT_V_2.0.py --iupac '1,3,7-trimethyl-2,3,6,7-tetrahydro-1H-purine-2,6-dione' -> IUPAC to SMILES
+python3 STOUT_V_2.0.py 'CN1C=NC2=C1C(=O)N(C(=O)N2C)C' #SMILES to IUPAC
+python3 STOUT_V_2.0.py --iupac '1,3,7-trimethyl-2,3,6,7-tetrahydro-1H-purine-2,6-dione' #IUPAC to SMILES
 ```
 - Download the model from [here](https://storage.googleapis.com/iupac_models_trained/Trained_model/Trained_model.zip)
 
