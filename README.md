@@ -25,7 +25,7 @@ $ conda activate STOUT
 $ conda install pip
 $ pip install tensorflow-gpu==2.3.0 selfies matplotlib unicodedata2 
 ```
-# Install tensorflow==2.3.0 if you do not have a nVidia GPU (On Mac OS)
+### Install tensorflow==2.3.0 if you do not have a nVidia GPU (On Mac OS)
 
 ```
 $ pip install tensorflow==2.3.0 selfies matplotlib unicodedata2
