@@ -11,6 +11,7 @@ import unicodedata
 import re
 import selfies
 import subprocess
+import urllib.request
 
 os.environ["CUDA_VISIBLE_DEVICES"]="2"
 
@@ -172,7 +173,7 @@ def download_trained_weights(model_url,model_path,model_size, verbose=1):
   #Download trained models
   if verbose > 0:
     print("Downloading trained model to " + model_path + " ...")
-    subprocess.run(['wget',model_url])
+    urllib.request.urlretrieve(model_url, "Trained_models.zip")
   if verbose > 0:
     print("... done downloading trained model!")
     subprocess.run(["unzip", "Trained_models.zip"])
