@@ -107,8 +107,8 @@ def main():
 
   # Call help, if the user arguments did not satisfy the rules.
   else:
-    print(len(sys.argv))
-    print("\nSee help using python3 STOUT_V_0.5.py --help")
+    #print(len(sys.argv))
+    print("\nSee help using python3 STOUT_V_2.0.py --help")
 
    
 
