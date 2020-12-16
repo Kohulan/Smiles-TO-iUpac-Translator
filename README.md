@@ -31,7 +31,7 @@ $ pip install tensorflow-gpu==2.3.0 selfies matplotlib unicodedata2
 $ pip install tensorflow==2.3.0 selfies matplotlib unicodedata2
 $ python3 STOUT_V_2.0.py --help #Use for help
 ```
-- When you run the program for the first time the models will get automatically downloaded(Note: total size is ~4GB). Also, you can manually download the models from [here](https://storage.googleapis.com/iupac_models_trained/Trained_model/Trained_model.zip)
+- When you run the program for the first time the models will get automatically downloaded(Note: total size is ~4GB). Also, you can manually download the models from [here](https://storage.googleapis.com/iupac_models_trained/Trained_model/STOUT_trained_models_v2.0.zip)
 ```
 e.g.: 
 
