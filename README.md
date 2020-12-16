@@ -26,6 +26,7 @@ $ bash Miniconda3-latest-Linux-x86_64.sh
 ## How to use STOUT
 
 ```
+$ sudo apt install unzip
 $ git clone https://github.com/Kohulan/SMILES-to-IUPAC-Translator.git
 $ cd SMILES-to-IUPAC-Translator
 $ conda create --name STOUT python=3.7.9
