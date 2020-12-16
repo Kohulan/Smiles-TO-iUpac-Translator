@@ -33,6 +33,10 @@ python3 STOUT_V_2.0.py --iupac '1,3,7-trimethyl-2,3,6,7-tetrahydro-1H-purine-2,6
 ```
 - Download the model from [here](https://storage.googleapis.com/iupac_models_trained/Trained_model/Trained_model.zip)
 
+## Citation information
+
+- Todo 
+
 # STOUT is part of DECIMER project
 [![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/raw/master/assets/DECIMER.gif)](https://kohulan.github.io/Decimer-Official-Site/)
 
