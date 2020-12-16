@@ -23,15 +23,21 @@ $ cd SMILES-to-IUPAC-Translator
 $ conda create --name STOUT python=3.7.9
 $ conda activate STOUT
 $ conda install pip
-$ pip install tensorflow-gpu==2.3.0 selfies matplotlib unicodedata2 #Install tensorflow==2.3.0 if you do not have a nVidia GPU
-$ python3 STOUT_V_2.0 --help #Use for help
+$ pip install tensorflow-gpu==2.3.0 selfies matplotlib unicodedata2 
+```
+# Install tensorflow==2.3.0 if you do not have a nVidia GPU (On Mac OS)
 
+```
+$ pip install tensorflow==2.3.0 selfies matplotlib unicodedata2
+$ python3 STOUT_V_2.0 --help #Use for help
+```
+- When you run the program for the first time the models will get automatically downloaded(Note: total size is ~4GB). Also you can manually download the models from [here](https://storage.googleapis.com/iupac_models_trained/Trained_model/Trained_model.zip)
+```
 e.g.: 
 
 python3 STOUT_V_2.0.py 'CN1C=NC2=C1C(=O)N(C(=O)N2C)C' #SMILES to IUPAC
 python3 STOUT_V_2.0.py --iupac '1,3,7-trimethyl-2,3,6,7-tetrahydro-1H-purine-2,6-dione' #IUPAC to SMILES
 ```
-- Download the model from [here](https://storage.googleapis.com/iupac_models_trained/Trained_model/Trained_model.zip)
 
 ## How to cite us?
 
