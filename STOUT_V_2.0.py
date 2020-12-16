@@ -173,10 +173,10 @@ def download_trained_weights(model_url,model_path,model_size, verbose=1):
   #Download trained models
   if verbose > 0:
     print("Downloading trained model to " + model_path + " ...")
-    urllib.request.urlretrieve(model_url, "Trained_models.zip")
+    urllib.request.urlretrieve(model_url, "STOUT_trained_models_v2.0.zip")
   if verbose > 0:
     print("... done downloading trained model!")
-    subprocess.run(["unzip", "Trained_models.zip"])
+    subprocess.run(["unzip", "STOUT_trained_models_v2.0.zip"])
 
 # Loads the appropriate model and resets the path for 30/60 Mio dataset related tokenizers(SMILES to IUPAC).
 def check_model(model_size):
@@ -186,7 +186,7 @@ def check_model(model_size):
 
   # restoring the latest checkpoint in checkpoint_dir
   checkpoint_path = 'Trained_models/'+model_size+'/forward'
-  model_url = 'https://storage.googleapis.com/iupac_models_trained/Trained_model/Trained_models.zip'
+  model_url = 'https://storage.googleapis.com/iupac_models_trained/Trained_model/STOUT_trained_models_v2.0.zip'
   if not os.path.exists(checkpoint_path):
     download_trained_weights(model_url,checkpoint_path,model_size)
 
