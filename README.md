@@ -49,6 +49,12 @@ python STOUT_V_2.0.py --smiles 'CN1C=NC2=C1C(=O)N(C(=O)N2C)C' #SMILES to IUPAC
 python STOUT_V_2.0.py --iupac '1,3,7-trimethyl-2,3,6,7-tetrahydro-1H-purine-2,6-dione' #IUPAC to SMILES
 ```
 
+## How to use in Windows
+
+- Make sure Ubuntu subsytem is installed in your Windows PC. check [here](https://docs.microsoft.com/en-us/windows/wsl/install-win10) for more details how to get it.
+- If you have a Nvidia GPU in your Windows PC please check the [TensorFlow](https://www.tensorflow.org) guidlines, to how to install [TensorFlow GPU](https://www.tensorflow.org/install/gpu) in your PC.
+- Inside the Ubuntu subsystem you can run the commands and run STOUT.
+
 ## How to cite us?
 
 - Todo 
