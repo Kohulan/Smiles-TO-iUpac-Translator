@@ -13,12 +13,12 @@ https://www.nltk.org/_modules/nltk/translate/bleu_score.html
 OPSIN: Open Parser for Systematic IUPAC nomenclature
 https://github.com/dan2097/opsin
 
-### OS-Support: Linux and MACOS (On windows make sure you have installed and configured TensorFlow properly, or try to run inside the Ubuntu shell)
+#### OS-Support: Linux and MACOS (On windows make sure you have installed and configured TensorFlow properly, or try to run inside the Ubuntu shell)
 
 # Usage
 
-## We suggest to use STOUT inside a Conda environment, which makes the dependencies to install easily.
-### Conda can be downloaded as part of the [Anaconda](https://www.anaconda.com/) or the [Miniconda](https://conda.io/en/latest/miniconda.html) plattforms (Python 3.7). We recommend to install miniconda3. Using Linux you can get it with:
+### We suggest to use STOUT inside a Conda environment, which makes the dependencies to install easily.
+- Conda can be downloaded as part of the [Anaconda](https://www.anaconda.com/) or the [Miniconda](https://conda.io/en/latest/miniconda.html) plattforms (Python 3.7). We recommend to install miniconda3. Using Linux you can get it with:
 ```
 $ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 $ bash Miniconda3-latest-Linux-x86_64.sh
