@@ -29,14 +29,14 @@ $ pip install tensorflow-gpu==2.3.0 selfies matplotlib unicodedata2
 
 ```
 $ pip install tensorflow==2.3.0 selfies matplotlib unicodedata2
-$ python3 STOUT_V_2.0.py --help #Use for help
+$ python STOUT_V_2.0.py --help #Use for help
 ```
 - When you run the program for the first time the models will get automatically downloaded(Note: total size is ~ 3.1GB). Also, you can manually download the models from [here](https://storage.googleapis.com/iupac_models_trained/Trained_model/STOUT_trained_models_v2.0.zip)
 ```
 e.g.: 
 
 python STOUT_V_2.0.py --smiles 'CN1C=NC2=C1C(=O)N(C(=O)N2C)C' #SMILES to IUPAC
-python3 STOUT_V_2.0.py --iupac '1,3,7-trimethyl-2,3,6,7-tetrahydro-1H-purine-2,6-dione' #IUPAC to SMILES
+python STOUT_V_2.0.py --iupac '1,3,7-trimethyl-2,3,6,7-tetrahydro-1H-purine-2,6-dione' #IUPAC to SMILES
 ```
 
 ## How to cite us?
