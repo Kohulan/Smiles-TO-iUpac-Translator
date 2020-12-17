@@ -26,6 +26,8 @@ $ bash Miniconda3-latest-Linux-x86_64.sh
 ## How to use STOUT
 
 ```
+$ sudo apt update
+$ sudo apt install default-jdk # Incase if you do not have Java already installed
 $ sudo apt install unzip
 $ git clone https://github.com/Kohulan/SMILES-to-IUPAC-Translator.git
 $ cd SMILES-to-IUPAC-Translator
@@ -44,7 +46,7 @@ $ python STOUT_V_2.0.py --help #Use for help
 ```
 e.g.: 
 
-# Always write the SMILES or IUPAC name inside quotes ''.
+# Always write the SMILES or IUPAC name inside quotes ''/"".
 
 python STOUT_V_2.0.py --smiles 'CN1C=NC2=C1C(=O)N(C(=O)N2C)C' #SMILES to IUPAC
 python STOUT_V_2.0.py --iupac '1,3,7-trimethyl-2,3,6,7-tetrahydro-1H-purine-2,6-dione' #IUPAC to SMILES
