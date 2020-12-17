@@ -1,6 +1,6 @@
 # STOUT: Smiles TO iUpac Translator
 STOUT: SMILES TO IUPAC Translator is built using the same concept as a Neural Machine Translation(NMT). STOUT is initially trained on a subset downloaded from Pubchem[1] containing 30 Million SMILES[2] and 60 Million SMILES. which got converted into SELFIES using the SELFIES package. The same set of SMILES also was converted into IUPAC names using ChemAxon "molconvert", a command-line program in Marvin Suite 20.15 from ChemAxon (https://www.chemaxon.com)[3]. Later the textual data was converted into TFRecords(Binary files) for training on Tensor Processing Units(TPUs).
-![GitHub Logo](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/blob/main/important_assets/STOUT.png?raw=true)
+[![GitHub Logo](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/blob/main/important_assets/STOUT.png?raw=true)](https://github.com/Kohulan/Smiles-TO-iUpac-Translator)
 # Summary of the work.
 
 - We currently don’t have any open-source software to generate IUPAC names for a given molecule. To do that we came up with an idea to use a machine learning model based on the Neural Machine Translation. Our models can translate any given Canonical SMILES to IUPAC name and back.
