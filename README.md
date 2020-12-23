@@ -34,6 +34,7 @@ $ cd SMILES-to-IUPAC-Translator
 $ conda create --name STOUT python=3.7.9
 $ conda activate STOUT
 $ conda install pip
+$ python -m pip install -U pip #Upgrade pip
 $ pip install tensorflow-gpu==2.3.0 selfies matplotlib unicodedata2 
 ```
 ### Install tensorflow==2.3.0 if you do not have an nVidia GPU (On Mac OS)
