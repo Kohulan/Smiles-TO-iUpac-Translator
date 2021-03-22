@@ -1,4 +1,9 @@
 # STOUT: Smiles TO iUpac Translator
+[![License](https://img.shields.io/badge/License-MIT%202.0-blue.svg)](https://opensource.org/licenses/MIt)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-blue.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/graphs/commit-activity)
+[![GitHub issues](https://img.shields.io/github/issues/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/issues/)
+[![GitHub contributors](https://img.shields.io/github/contributors/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/graphs/contributors/)
+
 STOUT: SMILES TO IUPAC Translator is built using the same concept as a Neural Machine Translation(NMT). STOUT is initially trained on a subset downloaded from PubChem [1] containing 30 Million SMILES [2] and 60 Million SMILES. which got converted into SELFIES using the SELFIES package. The same set of SMILES also was converted into IUPAC names using ChemAxon "molconvert", a command-line program in Marvin Suite 20.15 from ChemAxon (https://www.chemaxon.com)[3]. Later the textual data was converted into TFRecords(Binary files) for training on Tensor Processing Units(TPUs).
 [![GitHub Logo](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/blob/main/important_assets/STOUT.png?raw=true)](https://github.com/Kohulan/Smiles-TO-iUpac-Translator)
 # Summary of the work.
