@@ -68,7 +68,7 @@ python STOUT_V_2.1.py --iupac '1,3,7-trimethyl-2,3,6,7-tetrahydro-1H-purine-2,6-
 
 ## How to cite us?
 
-Rajan, Kohulan; Zielesny, Achim; Steinbeck, Christoph (2020): STOUT: SMILES to IUPAC Names Using Neural Machine Translation. ChemRxiv. Preprint. https://doi.org/10.26434/chemrxiv.13469202.v1 
+Rajan, K., Zielesny, A. & Steinbeck, C. STOUT: SMILES to IUPAC names using neural machine translation. J Cheminform 13, 34 (2021). https://doi.org/10.1186/s13321-021-00512-4
 
 # References
 
