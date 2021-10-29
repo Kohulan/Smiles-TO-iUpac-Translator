@@ -41,12 +41,12 @@ $ conda create --name STOUT python=3.7.9
 $ conda activate STOUT
 $ conda install pip
 $ python -m pip install -U pip #Upgrade pip
-$ pip install tensorflow-gpu==2.3.0 selfies matplotlib unicodedata2 
+$ pip install tensorflow-gpu==2.3.0 selfies==1.0.4 matplotlib unicodedata2 
 ```
 ### Install tensorflow==2.3.0 if you do not have an nVidia GPU (On Mac OS)
 
 ```
-$ pip install tensorflow==2.3.0 selfies matplotlib unicodedata2
+$ pip install tensorflow==2.3.0 selfies==1.0.4 matplotlib unicodedata2
 $ python STOUT_V_2.1.py --help #Use for help
 ```
 - When you run the program for the first time the models will get automatically downloaded(Note: total size is ~ 3.1GB). Also, you can manually download the models from [here](https://storage.googleapis.com/iupac_models_trained/Trained_model/STOUT_trained_models_v2.0.zip)
