@@ -15,6 +15,7 @@ import re
 import time
 import transformer_model_4_repack as nmt_model_transformer
 import helper
+
 print(tf.__version__)
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
@@ -69,110 +70,126 @@ ckpt_manager = tf.train.CheckpointManager(ckpt, checkpoint_path, max_to_keep=50)
 if ckpt_manager.latest_checkpoint:
     ckpt.restore(tf.train.latest_checkpoint(checkpoint_path))
 
+
 class Translator(tf.Module):
-  """This is a class which takes care of inference. It loads the saved checkpoint and the necessary
-  tokenizers. The inference begins with the start token (<start>) and ends when the end token(<end>)
-  is met. This class can only work with tf.Tensor objects. The strings shoul gets transformeed into np.arrays
-  before feeding them into this class.
-  """
-  def __init__(self, targ_max_length, inp_max_length, inp_lang, targ_lang, transformer):
-    """Load the tokenizers, the maximum input and output length and the transformer model.
-
-    Args:
-        targ_max_length ([type]): Maximum length of a string which can get predicted.
-        inp_max_length ([type]): Maximum length of an input string.
-        inp_lang ([type]): Input tokenizer, defines which charater is assigned to what token. 
-        targ_lang ([type]): Output tokenizer, defines which charater is assigned to what token. 
-        transformer ([type]): The transformer model.
+    """This is a class which takes care of inference. It loads the saved checkpoint and the necessary
+    tokenizers. The inference begins with the start token (<start>) and ends when the end token(<end>)
+    is met. This class can only work with tf.Tensor objects. The strings shoul gets transformeed into np.arrays
+    before feeding them into this class.
     """
-    self.targ_max_length = targ_max_length
-    self.inp_max_length = inp_max_length
-    self.inp_lang = inp_lang
-    self.targ_lang = targ_lang
-    self.transformer = transformer
-        
-  def __call__(self, sentence:tf.Tensor[tf.int32])->tf.Tensor[tf.int64]:
-    """This fuction takes in the tokenized input of a SMILES string or an IUPAC name
-    and makes the predicted list of tokens and return the tokens as tf.Tensor array
-    before feeding the input array we must define start and the end tokens.
 
-    Args:
-        sentence (tf.Tensor[tf.int32]): Input array in tf.Easgertensor format.
+    def __init__(
+        self, targ_max_length, inp_max_length, inp_lang, targ_lang, transformer
+    ):
+        """Load the tokenizers, the maximum input and output length and the transformer model.
 
-    Returns:
-        tf.Tensor[tf.int64]: predicted output as an array.
-    """
-    assert isinstance(sentence, tf.Tensor)
-    if len(sentence.shape) == 0:
-        sentence = sentence[tf.newaxis]
-            
-    output_sentence = tf.convert_to_tensor(sentence)
-    encoder_input = output_sentence
+        Args:
+            targ_max_length ([type]): Maximum length of a string which can get predicted.
+            inp_max_length ([type]): Maximum length of an input string.
+            inp_lang ([type]): Input tokenizer, defines which charater is assigned to what token.
+            targ_lang ([type]): Output tokenizer, defines which charater is assigned to what token.
+            transformer ([type]): The transformer model.
+        """
+        self.targ_max_length = targ_max_length
+        self.inp_max_length = inp_max_length
+        self.inp_lang = inp_lang
+        self.targ_lang = targ_lang
+        self.transformer = transformer
 
-    start = tf.cast(tf.convert_to_tensor([targ_lang.word_index["<start>"]]),tf.int64)
-    end = tf.cast(tf.convert_to_tensor([targ_lang.word_index["<end>"]]),tf.int64)
-        
-    output_array = tf.TensorArray(dtype=tf.int64, size=0, dynamic_size=True)
-    output_array = output_array.write(0, start)
+    def __call__(self, sentence: tf.Tensor[tf.int32]) -> tf.Tensor[tf.int64]:
+        """This fuction takes in the tokenized input of a SMILES string or an IUPAC name
+        and makes the predicted list of tokens and return the tokens as tf.Tensor array
+        before feeding the input array we must define start and the end tokens.
 
-    for t in tf.range(targ_max_length):
-        output = tf.transpose(output_array.stack())
-        enc_padding_mask, combined_mask, dec_padding_mask = helper.create_masks(
-            encoder_input, output
+        Args:
+            sentence (tf.Tensor[tf.int32]): Input array in tf.Easgertensor format.
+
+        Returns:
+            tf.Tensor[tf.int64]: predicted output as an array.
+        """
+        assert isinstance(sentence, tf.Tensor)
+        if len(sentence.shape) == 0:
+            sentence = sentence[tf.newaxis]
+
+        output_sentence = tf.convert_to_tensor(sentence)
+        encoder_input = output_sentence
+
+        start = tf.cast(
+            tf.convert_to_tensor([targ_lang.word_index["<start>"]]), tf.int64
         )
+        end = tf.cast(tf.convert_to_tensor([targ_lang.word_index["<end>"]]), tf.int64)
 
-        predictions, _ = self.transformer(
-            (encoder_input,
-            output,
-            enc_padding_mask,
-            combined_mask,
-            dec_padding_mask)
-            ,False,
+        output_array = tf.TensorArray(dtype=tf.int64, size=0, dynamic_size=True)
+        output_array = output_array.write(0, start)
+
+        for t in tf.range(targ_max_length):
+            output = tf.transpose(output_array.stack())
+            enc_padding_mask, combined_mask, dec_padding_mask = helper.create_masks(
+                encoder_input, output
             )
 
-        # select the last word from the seq_len dimension
-        predictions = predictions[:, -1:, :]  # (batch_size, 1, vocab_size)
+            predictions, _ = self.transformer(
+                (
+                    encoder_input,
+                    output,
+                    enc_padding_mask,
+                    combined_mask,
+                    dec_padding_mask,
+                ),
+                False,
+            )
 
-        predicted_id = tf.argmax(predictions, axis=-1)
-        
-        output_array = output_array.write(t+1, predicted_id[0])
-            
-        if predicted_id == end:
-            break
-    output = tf.transpose(output_array.stack())
+            # select the last word from the seq_len dimension
+            predictions = predictions[:, -1:, :]  # (batch_size, 1, vocab_size)
 
-    return output,sentence
+            predicted_id = tf.argmax(predictions, axis=-1)
+
+            output_array = output_array.write(t + 1, predicted_id[0])
+
+            if predicted_id == end:
+                break
+        output = tf.transpose(output_array.stack())
+
+        return output, sentence
+
 
 # Create an instance of this Translator class
-translator = Translator(targ_max_length, inp_max_length, inp_lang, targ_lang, transformer)
+translator = Translator(
+    targ_max_length, inp_max_length, inp_lang, targ_lang, transformer
+)
+
 
 class ExportTranslator(tf.Module):
-  """This class wraps the inference class into a module into tf.Module sub-class, with a tf.function on the __call__ method.
-  So we could export the model as a tf.saved_model.
-  """
-  def __init__(self, translator):
-    """Import the translator instance."""
-    self.translator = translator
-
-  @tf.function(input_signature=[tf.TensorSpec(shape=[1,inp_max_length], dtype=tf.int32)])
-  def __call__(self, sentence:tf.Tensor[tf.int32])->tf.Tensor[tf.int64]:
-    """This fucntion calls the __call__function from the translator class.
-    In the tf.function only the output sentence is returned. 
-    Thanks to the non-strict execution in tf.function any unnecessary values are never computed.
-
-    Args:
-        sentence (tf.Tensor[tf.int32]): Input array in tf.Easgertensor format.
-
-    Returns:
-        tf.Tensor[tf.int64]: predicted output as an array.
+    """This class wraps the inference class into a module into tf.Module sub-class, with a tf.function on the __call__ method.
+    So we could export the model as a tf.saved_model.
     """
 
-    (result, tokens) = self.translator(sentence)
+    def __init__(self, translator):
+        """Import the translator instance."""
+        self.translator = translator
 
-    return result
+    @tf.function(
+        input_signature=[tf.TensorSpec(shape=[1, inp_max_length], dtype=tf.int32)]
+    )
+    def __call__(self, sentence: tf.Tensor[tf.int32]) -> tf.Tensor[tf.int64]:
+        """This fucntion calls the __call__function from the translator class.
+        In the tf.function only the output sentence is returned.
+        Thanks to the non-strict execution in tf.function any unnecessary values are never computed.
+
+        Args:
+            sentence (tf.Tensor[tf.int32]): Input array in tf.Easgertensor format.
+
+        Returns:
+            tf.Tensor[tf.int64]: predicted output as an array.
+        """
+
+        (result, tokens) = self.translator(sentence)
+
+        return result
+
 
 # Create an instance of the ExportTranslator module
 translator = ExportTranslator(translator)
 
 # Save the model into a directory with assets
-tf.saved_model.save(translator, export_dir='STOUT_2_reverse')
+tf.saved_model.save(translator, export_dir="STOUT_2_reverse")
