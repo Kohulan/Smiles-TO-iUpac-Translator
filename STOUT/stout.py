@@ -5,7 +5,7 @@ import os
 import pickle
 import pystow
 import re
-import repack.helper as helper
+from repack import helper
 
 
 # Print tensorflow version
