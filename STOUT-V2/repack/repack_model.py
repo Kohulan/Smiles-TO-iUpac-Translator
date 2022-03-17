@@ -6,13 +6,8 @@ This helps to reduce the clutter and for faster inference functions.
 
 import tensorflow as tf
 import os
-import sys
 import pickle
 import numpy as np
-import selfies
-import argparse
-import re
-import time
 import transformer_model_4_repack as nmt_model_transformer
 import helper
 
