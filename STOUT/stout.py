@@ -9,7 +9,7 @@ from .repack import helper
 
 
 # Print tensorflow version
-print(tf.__version__)
+print("Tensorflow version: "+tf.__version__)
 
 # Always select a GPU if available
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"

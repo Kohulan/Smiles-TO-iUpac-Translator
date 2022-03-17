@@ -20,6 +20,7 @@ setuptools.setup(
     license="MIT",
     install_requires=[
         "tensorflow-gpu==2.6.0",
+        "keras==2.6.*",
         "pystow",
         "unicodedata2",
     ],
