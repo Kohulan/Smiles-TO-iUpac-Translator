@@ -7,7 +7,6 @@ This helps to reduce the clutter and for faster inference functions.
 import tensorflow as tf
 import os
 import pickle
-import numpy as np
 import transformer_model_4_repack as nmt_model_transformer
 import helper
 

@@ -138,7 +138,7 @@ def download_trained_weights(model_url: str, model_path: str, verbose=1):
 
     Returns:
         downloaded model.
-    """    
+    """
     # Download trained models
     if verbose > 0:
         print("Downloading trained model to " + str(model_path))

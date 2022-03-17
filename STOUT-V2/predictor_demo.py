@@ -1,4 +1,3 @@
-import os
 import time
 from stout import translate_forward, translate_reverse
 

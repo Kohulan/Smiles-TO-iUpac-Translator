@@ -22,7 +22,7 @@ for gpu in gpus:
 # Set path
 default_path = pystow.join("STOUT-V2", "models")
 
-#model download location
+# model download location
 model_url = "https://storage.googleapis.com/decimer_weights/models.zip"
 model_path = str(default_path) + "/translator_forward/"
 
