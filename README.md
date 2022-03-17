@@ -34,7 +34,10 @@ $ python -m pip install -U pip #Upgrade pip
 $ pip install tensorflow-gpu==2.6.0 unicodedata2 pystow
 ```
 
-## Py-Pi installtion instructions coming soon
+## Py-Pi installation instructions coming soon but for now,
+```shell
+pip install git+https://github.com/Kohulan/STOUT-2.git
+```
 
 
 ## Simple usage
