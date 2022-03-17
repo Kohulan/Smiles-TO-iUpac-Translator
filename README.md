@@ -8,4 +8,11 @@
 
 ![GitHub Logo](https://github.com/Kohulan/STOUT-2/blob/main/Stout-2.png?raw=true)
 
-This repository contains STOUT-V2, SMILES to IUPAC name translator using transformers. STOUT-V2 can translate SMILES to IUPAC names and IUPAC names back to a valid SMILES string.
+This repository contains STOUT-V2, SMILES to IUPAC name translator using transformers. STOUT-V2 can translate SMILES to IUPAC names and IUPAC names back to a valid SMILES string. STOUT-V1 is already publiahed and for more details check [here](https://github.com/Kohulan/Smiles-TO-iUpac-Translator)
+
+# STOUT-V2 is part of DECIMER project
+[![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/raw/master/assets/DECIMER.gif)](https://kohulan.github.io/Decimer-Official-Site/)
+
+# More about Us
+
+[![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/blob/master/assets/CheminfGit.png?raw=true)](https://cheminf.uni-jena.de)
