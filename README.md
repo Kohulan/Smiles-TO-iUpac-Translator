@@ -25,25 +25,22 @@ $ bash Miniconda3-latest-Linux-x86_64.sh
 ```shell
 $ sudo apt update
 $ sudo apt install unzip
-$ git clone https://github.com/Kohulan/STOUT-2.git
-$ cd STOUT-2/STOUT-V2
 $ conda create --name STOUT python=3.7.9
 $ conda activate STOUT
 $ conda install pip
-$ python -m pip install -U pip #Upgrade pip
-$ pip install tensorflow-gpu==2.6.0 unicodedata2 pystow
+$ pip install git+https://github.com/Kohulan/STOUT-2.git
 ```
 
-## Py-Pi installation instructions coming soon but for now,
+## Py-Pi installation instructions coming soon,
 ```shell
-pip install git+https://github.com/Kohulan/STOUT-2.git
+
 ```
 
 
 ## Simple usage
 ```python3
 
-from stout import translate_forward, translate_reverse
+from STOUT import translate_forward, translate_reverse
 
 # SMILES to IUPAC name translation
 
