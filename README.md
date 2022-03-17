@@ -29,6 +29,7 @@ $ sudo apt install unzip
 $ conda create --name STOUT python=3.7.9
 $ conda activate STOUT
 $ conda install pip
+$ python -m pip install -U pip
 $ pip install git+https://github.com/Kohulan/STOUT-2.git
 ```
 
