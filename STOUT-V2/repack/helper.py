@@ -2,6 +2,8 @@ import tensorflow as tf
 import re
 import unicodedata
 import numpy as np
+import pystow
+import subprocess
 
 # Converts the unicode file to ascii
 def unicode_to_ascii(s: str) -> str:
@@ -123,3 +125,32 @@ def create_masks(inp, tar):
     combined_mask = tf.maximum(dec_target_padding_mask, look_ahead_mask)
 
     return enc_padding_mask, combined_mask, dec_padding_mask
+
+# Downloads the model and unzips the file downloaded, if the model is not present on the working directory.
+def download_trained_weights(model_url: str, model_path: str, verbose=1):
+    """This function downloads the trained models and tokenizers to a default location.
+    After downloading the zipped file the function unzips the file automatically.
+    If the model exists on the default location this function will not work.
+
+    Args:
+        model_url (str): trained model url for downloading.
+        model_path (str): model default path to download.
+
+    Returns:
+        downloaded model.
+    """    
+    # Download trained models
+    if verbose > 0:
+        print("Downloading trained model to " + str(model_path))
+        model_path = pystow.ensure("STOUT-V2", url=model_url)
+        print(model_path)
+    if verbose > 0:
+        print("... done downloading trained model!")
+        subprocess.run(
+            [
+                "unzip",
+                model_path.as_posix(),
+                "-d",
+                model_path.parent.as_posix(),
+            ]
+        )

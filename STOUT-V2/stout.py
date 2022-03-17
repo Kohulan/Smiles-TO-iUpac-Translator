@@ -3,11 +3,13 @@
 import tensorflow as tf
 import os
 import pickle
+import pystow
 import argparse
 import re
 import time
 import numpy as np
-import helper
+import repack.helper as helper
+
 
 # Print tensorflow version
 print(tf.__version__)
@@ -20,11 +22,23 @@ gpus = tf.config.experimental.list_physical_devices("GPU")
 for gpu in gpus:
     tf.config.experimental.set_memory_growth(gpu, True)
 
-# Load the packed model forward
-reloaded_forward = tf.saved_model.load("models/translator_forward")
+# Set path
+default_path = pystow.join("STOUT-V2", "models")
+
+#model download location
+model_url = "https://storage.googleapis.com/decimer_weights/models.zip"
+model_path = str(default_path) + "/translator_forward/"
+
+# download models to a default location
+if not os.path.exists(model_path):
+    helper.download_trained_weights(model_url, default_path)
+
 
 # Load the packed model forward
-reloaded_reverse = tf.saved_model.load("models/translator_reverse")
+reloaded_forward = tf.saved_model.load(default_path.as_posix()+"/translator_forward")
+
+# Load the packed model forward
+reloaded_reverse = tf.saved_model.load(default_path.as_posix()+"/translator_reverse")
 
 
 def translate_forward(sentence_input: str) -> str:
@@ -40,9 +54,9 @@ def translate_forward(sentence_input: str) -> str:
     """
 
     # Load important pickle files which consists the tokenizers and the maxlength setting
-    inp_lang = pickle.load(open("models/assets/tokenizer_input.pkl", "rb"))
-    targ_lang = pickle.load(open("models/assets/tokenizer_target.pkl", "rb"))
-    inp_max_length = pickle.load(open("models/assets/max_length_inp.pkl", "rb"))
+    inp_lang = pickle.load(open(default_path.as_posix()+"/assets/tokenizer_input.pkl", "rb"))
+    targ_lang = pickle.load(open(default_path.as_posix()+"/assets/tokenizer_target.pkl", "rb"))
+    inp_max_length = pickle.load(open(default_path.as_posix()+"/assets/max_length_inp.pkl", "rb"))
 
     splitted_list = list(sentence_input)
     Tokenized_SMILES = re.sub(r"\s+(?=[a-z])", "", " ".join(map(str, splitted_list)))
@@ -67,9 +81,9 @@ def translate_reverse(sentence_input: str) -> str:
     """
 
     # Load important pickle files which consists the tokenizers and the maxlength setting
-    targ_lang = pickle.load(open("models/assets/tokenizer_input.pkl", "rb"))
-    inp_lang = pickle.load(open("models/assets/tokenizer_target.pkl", "rb"))
-    inp_max_length = pickle.load(open("models/assets/max_length_targ.pkl", "rb"))
+    targ_lang = pickle.load(open(default_path.as_posix()+"/assets/tokenizer_input.pkl", "rb"))
+    inp_lang = pickle.load(open(default_path.as_posix()+"/assets/tokenizer_target.pkl", "rb"))
+    inp_max_length = pickle.load(open(default_path.as_posix()+"/assets/max_length_targ.pkl", "rb"))
 
     splitted_list = list(sentence_input)
     Tokenized_SMILES = " ".join(map(str, splitted_list))
