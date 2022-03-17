@@ -10,6 +10,55 @@
 
 This repository contains STOUT-V2, SMILES to IUPAC name translator using transformers. STOUT-V2 can translate SMILES to IUPAC names and IUPAC names back to a valid SMILES string. STOUT-V1 is already publiahed and for more details check [here](https://github.com/Kohulan/Smiles-TO-iUpac-Translator)
 
+#### OS-Support: Linux, MACOS and Windows (On Windows you can run STOUT inside the Ubuntu shell). But It is highly recommended to use a Linux system.
+
+# Usage
+
+### We suggest to use STOUT inside a Conda environment, which makes the dependencies to install easily.
+- Conda can be downloaded as part of the [Anaconda](https://www.anaconda.com/) or the [Miniconda](https://conda.io/en/latest/miniconda.html) plattforms (Python 3.7). We recommend to install miniconda3. Using Linux you can get it with:
+```shell
+$ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+$ bash Miniconda3-latest-Linux-x86_64.sh
+```
+## How to install STOUT
+
+```shell
+$ sudo apt update
+$ sudo apt install unzip
+$ git clone https://github.com/Kohulan/STOUT-2.git
+$ cd STOUT-2/STOUT-V2
+$ conda create --name STOUT python=3.7.9
+$ conda activate STOUT
+$ conda install pip
+$ python -m pip install -U pip #Upgrade pip
+$ pip install tensorflow-gpu==2.6.0 unicodedata2 pystow
+```
+
+## Py-Pi installtion instructions coming soon
+
+
+## Simple usage
+```python3
+
+from stout import translate_forward, translate_reverse
+
+# SMILES to IUPAC name translation
+
+SMILES = "CN1C=NC2=C1C(=O)N(C(=O)N2C)C"
+IUPAC_name = translate_forward(SMILES)
+print("IUPAC name of "+SMILES+" is: "+IUPAC_name)
+
+# IUPAC name to SMILES translation
+
+IUPAC_name = "1,3,7-trimethylpurine-2,6-dione"
+SMILES = translate_reverse(IUPAC_name)
+print("SMILES of "+IUPAC_name+" is: "+SMILES)
+
+```
+
+
+
+
 # STOUT-V2 is part of DECIMER project
 [![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/raw/master/assets/DECIMER.gif)](https://kohulan.github.io/Decimer-Official-Site/)
 
