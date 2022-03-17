@@ -23,7 +23,7 @@ setuptools.setup(
         "pystow",
         "unicodedata2",
     ],
-    package_data={"STOUT-V2": ["repack/*.*", "trainer/*.*"]},
+    package_data={"STOUT": ["repack/*.*", "trainer/*.*"]},
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.5",
