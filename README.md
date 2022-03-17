@@ -1,5 +1,6 @@
 [![License](https://img.shields.io/badge/License-MIT%202.0-blue.svg)](https://opensource.org/licenses/MIt)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-blue.svg)](https://github.com/Kohulan/STOUT-2/graphs/commit-activity)
+![Workflow](https://github.com/OBrink/RanDepict/actions/workflows/ci_pytest.yml/badge.svg)
 [![GitHub issues](https://img.shields.io/github/issues/Kohulan/STOUT-2.svg)](https://GitHub.com/Kohulan/STOUT-2/issues/)
 [![GitHub contributors](https://img.shields.io/github/contributors/Kohulan/STOUT-2.svg)](https://GitHub.com/Kohulan/STOUT-2/graphs/contributors/)
 [![GitHub release](https://img.shields.io/github/release/Kohulan/STOUT-2.svg)](https://GitHub.com/Kohulan/STOUT-2/releases/)
