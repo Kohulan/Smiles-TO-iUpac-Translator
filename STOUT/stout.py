@@ -6,6 +6,7 @@ import pickle
 import pystow
 import re
 from .repack import helper
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 
 # Print tensorflow version
