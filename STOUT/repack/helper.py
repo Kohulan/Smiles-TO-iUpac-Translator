@@ -1,4 +1,5 @@
 import tensorflow as tf
+import tensorflow.keras as keras
 import re
 import unicodedata
 import numpy as np
@@ -65,7 +66,7 @@ def tokenize_input(input_SMILES: str, inp_lang, inp_max_length: int) -> np.array
     """
     sentence = preprocess_sentence(input_SMILES)
     inputs = [inp_lang.word_index[i] for i in sentence.split(" ")]
-    tokenized_input = tf.keras.preprocessing.sequence.pad_sequences(
+    tokenized_input = keras.preprocessing.sequence.pad_sequences(
         [inputs], maxlen=inp_max_length, padding="post"
     )
 
