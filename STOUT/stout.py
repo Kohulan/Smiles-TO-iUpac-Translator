@@ -1,6 +1,7 @@
 # Initializing and importing necessary libararies
 
 import tensorflow as tf
+from rdkit import Chem
 import os
 import pickle
 import pystow
@@ -39,13 +40,13 @@ reloaded_forward = tf.saved_model.load(default_path.as_posix()+"/translator_forw
 reloaded_reverse = tf.saved_model.load(default_path.as_posix()+"/translator_reverse")
 
 
-def translate_forward(sentence_input: str) -> str:
+def translate_forward(smiles: str) -> str:
     """Takes user input splits them into words and generates tokens.
     Tokens are then passed to the model and the model predicted tokens are retrieved.
     The predicted tokens gets detokenized and the final result is returned in a string format.
 
     Args:
-        sentence_input (str): user input SMILES in string format.
+        smiles (str): user input SMILES in string format.
 
     Returns:
         result (str): The predicted IUPAC names in string format.
@@ -55,24 +56,29 @@ def translate_forward(sentence_input: str) -> str:
     inp_lang = pickle.load(open(default_path.as_posix()+"/assets/tokenizer_input.pkl", "rb"))
     targ_lang = pickle.load(open(default_path.as_posix()+"/assets/tokenizer_target.pkl", "rb"))
     inp_max_length = pickle.load(open(default_path.as_posix()+"/assets/max_length_inp.pkl", "rb"))
+    if len(smiles) == 0:
+        return ''
+    smiles = smiles.replace('\\/', '/')
+    mol = Chem.MolFromSmiles(smiles)
+    if mol:
+        smiles = Chem.MolToSmiles(mol, kekuleSmiles=True)
+        splitted_list = list(smiles)
+        tokenized_SMILES = re.sub(r"\s+(?=[a-z])", "", " ".join(map(str, splitted_list)))
+        decoded = helper.tokenize_input(tokenized_SMILES, inp_lang, inp_max_length)
+        result_predited = reloaded_forward(decoded)
+        result = helper.detokenize_output(result_predited, targ_lang)
+        return result
+    else:
+        return "Could not generate IUPAC name from invalid SMILES."
 
-    splitted_list = list(sentence_input)
-    Tokenized_SMILES = re.sub(r"\s+(?=[a-z])", "", " ".join(map(str, splitted_list)))
-    decoded = helper.tokenize_input(Tokenized_SMILES, inp_lang, inp_max_length)
 
-    result_predited = reloaded_forward(decoded)
-    result = helper.detokenize_output(result_predited, targ_lang)
-
-    return result
-
-
-def translate_reverse(sentence_input: str) -> str:
+def translate_reverse(iupacname: str) -> str:
     """Takes user input splits them into words and generates tokens.
     Tokens are then passed to the model and the model predicted tokens are retrieved.
     The predicted tokens gets detokenized and the final result is returned in a string format.
 
     Args:
-        sentence_input (str): user input IUPAC names in string format.
+        iupacname (str): user input IUPAC names in string format.
 
     Returns:
         result (str): The predicted SMILES in string format.
@@ -83,9 +89,9 @@ def translate_reverse(sentence_input: str) -> str:
     inp_lang = pickle.load(open(default_path.as_posix()+"/assets/tokenizer_target.pkl", "rb"))
     inp_max_length = pickle.load(open(default_path.as_posix()+"/assets/max_length_targ.pkl", "rb"))
 
-    splitted_list = list(sentence_input)
-    Tokenized_SMILES = " ".join(map(str, splitted_list))
-    decoded = helper.tokenize_input(Tokenized_SMILES, inp_lang, inp_max_length)
+    splitted_list = list(iupacname)
+    tokenized_IUPACname = " ".join(map(str, splitted_list))
+    decoded = helper.tokenize_input(tokenized_IUPACname, inp_lang, inp_max_length)
 
     result_predited = reloaded_reverse(decoded)
     result = helper.detokenize_output(result_predited, targ_lang)
