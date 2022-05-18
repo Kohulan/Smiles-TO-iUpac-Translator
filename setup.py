@@ -19,7 +19,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     license="MIT",
     install_requires=[
-        "tensorflow-gpu==2.7.0",
+        "tensorflow-gpu==2.7.1",
         "pystow",
         "unicodedata2",
         "rdkit-pypi",
