@@ -1,5 +1,4 @@
-tensorflow-gpu==2.6.3
-keras==2.6.*
+tensorflow-gpu==2.7.0
 pystow
 unicodedata2
 rdkit-pypi

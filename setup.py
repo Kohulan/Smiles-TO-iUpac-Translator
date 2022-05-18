@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="STOUT",
+    name="STOUT-pypi",
     version="2.0.0",
     author="Kohulan Rajan",
     author_email="kohulan.rajan@uni-jena.de",
@@ -19,8 +19,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     license="MIT",
     install_requires=[
-        "tensorflow-gpu==2.6.3",
-        "keras==2.6.*",
+        "tensorflow-gpu==2.7.0",
         "pystow",
         "unicodedata2",
         "rdkit-pypi",
