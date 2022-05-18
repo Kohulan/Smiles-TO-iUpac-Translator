@@ -1,15 +1,16 @@
 [![License](https://img.shields.io/badge/License-MIT%202.0-blue.svg)](https://opensource.org/licenses/MIt)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-blue.svg)](https://github.com/Kohulan/STOUT-2/graphs/commit-activity)
-![Workflow](https://github.com/OBrink/RanDepict/actions/workflows/ci_pytest.yml/badge.svg)
-[![GitHub issues](https://img.shields.io/github/issues/Kohulan/STOUT-2.svg)](https://GitHub.com/Kohulan/STOUT-2/issues/)
-[![GitHub contributors](https://img.shields.io/github/contributors/Kohulan/STOUT-2.svg)](https://GitHub.com/Kohulan/STOUT-2/graphs/contributors/)
-[![GitHub release](https://img.shields.io/github/release/Kohulan/STOUT-2.svg)](https://GitHub.com/Kohulan/STOUT-2/releases/)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-blue.svg)](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/graphs/commit-activity)
+![Workflow](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/actions/workflows/ci_pytest.yml/badge.svg)
+[![GitHub issues](https://img.shields.io/github/issues/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/issues/)
+[![GitHub contributors](https://img.shields.io/github/contributors/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/graphs/contributors/)
+[![GitHub release](https://img.shields.io/github/release/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/releases/)
 [![PyPI version fury.io](https://badge.fury.io/py/STOUT-2.svg)](https://pypi.python.org/pypi/STOUT-2/)
 ![versions](https://img.shields.io/pypi/pyversions/STOUT-2.svg)
 
-![GitHub Logo](https://github.com/Kohulan/STOUT-2/blob/main/Stout-2.png?raw=true)
+![GitHub Logo](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/blob/stout-1/important_assets/STOUT.png?raw=true)
 
-This repository contains STOUT-V2, SMILES to IUPAC name translator using transformers. STOUT-V2 can translate SMILES to IUPAC names and IUPAC names back to a valid SMILES string. STOUT-V1 is already publiahed and for more details check [here](https://github.com/Kohulan/Smiles-TO-iUpac-Translator)
+# STOUT V2.0 - Smiles TO iUpac Translator Version 2.0
+This repository contains STOUT-V2, SMILES to IUPAC name translator using transformers. STOUT-V2 can translate SMILES to IUPAC names and IUPAC names back to a valid SMILES string. STOUT-V1 is already published and for more details check [here](https://github.com/Kohulan/Smiles-TO-iUpac-Translator)
 
 #### OS-Support: Linux, MACOS and Windows (On Windows you can run STOUT inside the Ubuntu shell). But It is highly recommended to use a Linux system.
 
@@ -58,7 +59,11 @@ print("SMILES of "+IUPAC_name+" is: "+SMILES)
 
 ```
 
+#### Happy Brewing... 🍺
 
+## How to cite us?
+
+Rajan, K., Zielesny, A. & Steinbeck, C. STOUT: SMILES to IUPAC names using neural machine translation. J Cheminform 13, 34 (2021). https://doi.org/10.1186/s13321-021-00512-4
 
 
 # STOUT-V2 is part of DECIMER project
