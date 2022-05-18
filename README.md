@@ -67,7 +67,7 @@ Rajan, K., Zielesny, A. & Steinbeck, C. STOUT: SMILES to IUPAC names using neura
 
 
 # STOUT-V2 is part of DECIMER project
-[![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/raw/master/assets/DECIMER.gif)](https://kohulan.github.io/Decimer-Official-Site/)
+[![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/raw/master/assets/DECIMER.gif)](https://decimer.ai)
 
 # More about Us
 
