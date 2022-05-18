@@ -2,3 +2,4 @@ tensorflow-gpu==2.6.3
 keras==2.6.*
 pystow
 unicodedata2
+rdkit-pypi
