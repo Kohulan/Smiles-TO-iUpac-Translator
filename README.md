@@ -27,7 +27,7 @@ $ bash Miniconda3-latest-Linux-x86_64.sh
 ```shell
 $ sudo apt update
 $ sudo apt install unzip
-$ conda create --name STOUT python=3.7.9
+$ conda create --name STOUT python=3.8.0
 $ conda activate STOUT
 $ conda install pip
 $ python -m pip install -U pip
@@ -36,7 +36,7 @@ $ pip install git+https://github.com/Kohulan/Smiles-TO-iUpac-Translator.git
 
 ## Py-Pi installation instructions coming soon,
 ```shell
-pip install STOUT-pypi==2.0.0
+pip install STOUT-pypi==2.0.1
 ```
 
 
