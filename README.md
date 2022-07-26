@@ -72,3 +72,5 @@ Rajan, K., Zielesny, A. & Steinbeck, C. STOUT: SMILES to IUPAC names using neura
 # More about Us
 
 [![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/blob/master/assets/CheminfGit.png?raw=true)](https://cheminf.uni-jena.de)
+
+![Alt](https://repobeats.axiom.co/api/embed/c66cc0ff5bc3ae91ccc8a3f7ed20eb05c735d753.svg "Repobeats analytics image")
