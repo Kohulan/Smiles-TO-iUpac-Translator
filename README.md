@@ -4,7 +4,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/issues/)
 [![GitHub contributors](https://img.shields.io/github/contributors/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/graphs/contributors/)
 [![GitHub release](https://img.shields.io/github/release/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/releases/)
-[![PyPI version fury.io](https://badge.fury.io/py/STOUT-pypi.svg)](https://pypi.org/project/STOUT-pypi/2.0.0/)
+[![PyPI version fury.io](https://badge.fury.io/py/STOUT-pypi.svg)](https://pypi.org/project/STOUT-pypi/)
 ![versions](https://img.shields.io/pypi/pyversions/STOUT-pypi.svg)
 
 ![GitHub Logo](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/blob/stout-1/important_assets/STOUT.png?raw=true)
