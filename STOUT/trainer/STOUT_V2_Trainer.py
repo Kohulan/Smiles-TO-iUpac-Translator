@@ -1,16 +1,15 @@
 import tensorflow as tf
-
-import matplotlib as mpl
-
-mpl.use("Agg")
-import matplotlib.pyplot as plt
-import os
 import time
 import sys
 import pickle
 from datetime import datetime
 import nmt_model_transformer
 import re
+import matplotlib as mpl
+
+mpl.use("Agg")
+import matplotlib.pyplot as plt
+
 
 tpu = tf.distribute.cluster_resolver.TPUClusterResolver(tpu="node-2")
 print("Running on TPU ", tpu.master())
@@ -132,7 +131,7 @@ class CustomSchedule(tf.keras.optimizers.schedules.LearningRateSchedule):
 
     def __call__(self, step):
         arg1 = tf.math.rsqrt(step)
-        arg2 = step * (self.warmup_steps ** -1.5)
+        arg2 = step * (self.warmup_steps**-1.5)
 
         return tf.math.rsqrt(self.d_model) * tf.math.minimum(arg1, arg2)
 

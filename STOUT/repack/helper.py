@@ -1,3 +1,4 @@
+import os
 import tensorflow as tf
 import tensorflow.keras as keras
 import re
@@ -5,6 +6,31 @@ import unicodedata
 import numpy as np
 import pystow
 import subprocess
+from jpype import startJVM, getDefaultJVMPath
+from jpype import JClass, JVMNotFoundException, isJVMStarted
+
+# Start JVM to use CDK in python
+try:
+    jvmPath = getDefaultJVMPath()
+except JVMNotFoundException:
+    print(
+        "If you see this message, for some reason JPype",
+        "cannot find jvm.dll.",
+        "This indicates that the environment varibale JAVA_HOME",
+        "is not set properly.",
+        "You can set it or set it manually in the code",
+    )
+    jvmPath = "Define/path/or/set/JAVA_HOME/variable/properly"
+if not isJVMStarted():
+    cdk_path = "https://github.com/cdk/cdk/releases/download/cdk-2.8/cdk-2.8.jar"
+    jar_path = str(pystow.join("STOUT-V2")) + "/cdk-2.8.jar"
+
+    if not os.path.exists(jar_path):
+        jar_path = pystow.ensure("STOUT-V2", url=cdk_path)
+
+    startJVM(jvmPath, "-ea", "-Djava.class.path=" + str(jar_path))
+
+cdk_base = "org.openscience.cdk"
 
 # Converts the unicode file to ascii
 def unicode_to_ascii(s: str) -> str:
@@ -49,6 +75,27 @@ def preprocess_sentence(w: str) -> str:
     # so that the model know when to start and stop predicting.
     w = "<start> " + w + " <end>"
     return w
+
+
+def get_smiles_cdk(smiles: str) -> str:
+    """This function takes the user input SMILES and Canonicalize it
+       using the CDK Canonicalisation algorthim.
+
+    Args:
+        smiles (string): SMILES string given by the user.
+
+    Returns:
+        smiles (string): Canonicalised and kekulized SMILES using the CDK.
+
+    """
+    cdk_base = "org.openscience.cdk"
+    SCOB = JClass(cdk_base + ".DefaultChemObjectBuilder")
+    SmiFlavour = JClass(cdk_base + ".smiles.SmiFlavor")
+    SmilesGenerator = JClass(cdk_base + ".smiles.SmilesGenerator")(SmiFlavour.Absolute)
+    SmilesParser = JClass(cdk_base + ".smiles.SmilesParser")(SCOB.getInstance())
+    molecule = SmilesParser.parseSmiles(smiles)
+    CanSMILES = SmilesGenerator.create(molecule)
+    return CanSMILES
 
 
 def tokenize_input(input_SMILES: str, inp_lang, inp_max_length: int) -> np.array:
@@ -126,6 +173,7 @@ def create_masks(inp, tar):
     combined_mask = tf.maximum(dec_target_padding_mask, look_ahead_mask)
 
     return enc_padding_mask, combined_mask, dec_padding_mask
+
 
 # Downloads the model and unzips the file downloaded, if the model is not present on the working directory.
 def download_trained_weights(model_url: str, model_path: str, verbose=1):

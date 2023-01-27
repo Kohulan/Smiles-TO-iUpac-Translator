@@ -1,5 +1,4 @@
 import tensorflow as tf
-import efficientnet.tfkeras as efn
 import numpy as np
 
 

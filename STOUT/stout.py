@@ -1,17 +1,17 @@
 # Initializing and importing necessary libararies
 
 import tensorflow as tf
-from rdkit import Chem
 import os
 import pickle
 import pystow
 import re
 from .repack import helper
+
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 
 # Print tensorflow version
-print("Tensorflow version: "+tf.__version__)
+print("Tensorflow version: " + tf.__version__)
 
 # Always select a GPU if available
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
@@ -34,10 +34,10 @@ if not os.path.exists(model_path):
 
 
 # Load the packed model forward
-reloaded_forward = tf.saved_model.load(default_path.as_posix()+"/translator_forward")
+reloaded_forward = tf.saved_model.load(default_path.as_posix() + "/translator_forward")
 
 # Load the packed model forward
-reloaded_reverse = tf.saved_model.load(default_path.as_posix()+"/translator_reverse")
+reloaded_reverse = tf.saved_model.load(default_path.as_posix() + "/translator_reverse")
 
 
 def translate_forward(smiles: str) -> str:
@@ -53,23 +53,30 @@ def translate_forward(smiles: str) -> str:
     """
 
     # Load important pickle files which consists the tokenizers and the maxlength setting
-    inp_lang = pickle.load(open(default_path.as_posix()+"/assets/tokenizer_input.pkl", "rb"))
-    targ_lang = pickle.load(open(default_path.as_posix()+"/assets/tokenizer_target.pkl", "rb"))
-    inp_max_length = pickle.load(open(default_path.as_posix()+"/assets/max_length_inp.pkl", "rb"))
+    inp_lang = pickle.load(
+        open(default_path.as_posix() + "/assets/tokenizer_input.pkl", "rb")
+    )
+    targ_lang = pickle.load(
+        open(default_path.as_posix() + "/assets/tokenizer_target.pkl", "rb")
+    )
+    inp_max_length = pickle.load(
+        open(default_path.as_posix() + "/assets/max_length_inp.pkl", "rb")
+    )
     if len(smiles) == 0:
-        return ''
-    smiles = smiles.replace('\\/', '/')
-    mol = Chem.MolFromSmiles(smiles)
-    if mol:
-        smiles = Chem.MolToSmiles(mol, kekuleSmiles=True)
+        return ""
+    smiles = smiles.replace("\\/", "/")
+    smiles_canon = helper.get_smiles_cdk(smiles)
+    if smiles_canon:
         splitted_list = list(smiles)
-        tokenized_SMILES = re.sub(r"\s+(?=[a-z])", "", " ".join(map(str, splitted_list)))
+        tokenized_SMILES = re.sub(
+            r"\s+(?=[a-z])", "", " ".join(map(str, splitted_list))
+        )
         decoded = helper.tokenize_input(tokenized_SMILES, inp_lang, inp_max_length)
         result_predited = reloaded_forward(decoded)
         result = helper.detokenize_output(result_predited, targ_lang)
         return result
     else:
-        return "Could not generate IUPAC name from invalid SMILES."
+        return "Could not generate IUPAC name for SMILES provided."
 
 
 def translate_reverse(iupacname: str) -> str:
@@ -85,9 +92,15 @@ def translate_reverse(iupacname: str) -> str:
     """
 
     # Load important pickle files which consists the tokenizers and the maxlength setting
-    targ_lang = pickle.load(open(default_path.as_posix()+"/assets/tokenizer_input.pkl", "rb"))
-    inp_lang = pickle.load(open(default_path.as_posix()+"/assets/tokenizer_target.pkl", "rb"))
-    inp_max_length = pickle.load(open(default_path.as_posix()+"/assets/max_length_targ.pkl", "rb"))
+    targ_lang = pickle.load(
+        open(default_path.as_posix() + "/assets/tokenizer_input.pkl", "rb")
+    )
+    inp_lang = pickle.load(
+        open(default_path.as_posix() + "/assets/tokenizer_target.pkl", "rb")
+    )
+    inp_max_length = pickle.load(
+        open(default_path.as_posix() + "/assets/max_length_targ.pkl", "rb")
+    )
 
     splitted_list = list(iupacname)
     tokenized_IUPACname = " ".join(map(str, splitted_list))
