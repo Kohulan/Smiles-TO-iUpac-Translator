@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI and pytest
+name: Error checking and testing
 
 # Controls when the workflow will run
 on:
@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.7]
+        python-version: ['3.10']
 
     steps:
       - uses: actions/checkout@v2
