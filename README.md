@@ -1,6 +1,6 @@
 [![License](https://img.shields.io/badge/License-MIT%202.0-blue.svg)](https://opensource.org/licenses/MIt)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-blue.svg)](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/graphs/commit-activity)
-![Workflow](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/actions/workflows/ci_pytest.yml/badge.svg)
+![Workflow](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/actions/workflows/Check_errors.yml/badge.svg)
 [![GitHub issues](https://img.shields.io/github/issues/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/issues/)
 [![GitHub contributors](https://img.shields.io/github/contributors/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/graphs/contributors/)
 [![GitHub release](https://img.shields.io/github/release/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/releases/)
@@ -36,7 +36,7 @@ $ pip install git+https://github.com/Kohulan/Smiles-TO-iUpac-Translator.git
 
 ## Py-Pi installation instructions coming soon,
 ```shell
-pip install STOUT-pypi==2.0.1
+pip install STOUT-pypi==2.0.2
 ```
 
 
