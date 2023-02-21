@@ -65,6 +65,12 @@ print("SMILES of "+IUPAC_name+" is: "+SMILES)
 
 Rajan, K., Zielesny, A. & Steinbeck, C. STOUT: SMILES to IUPAC names using neural machine translation. J Cheminform 13, 34 (2021). https://doi.org/10.1186/s13321-021-00512-4
 
+## Acknowledgement
+- Research supported with Cloud TPUs from Google's TPU Research Cloud (TRC) 
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/30716951/220350828-913e6645-6a0a-403c-bcb8-160d061d4606.png" width="500" class="center">
+</p>
 
 # STOUT-V2 is part of DECIMER project
 [![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/raw/master/assets/DECIMER.gif)](https://decimer.ai)
