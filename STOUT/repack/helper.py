@@ -5,7 +5,6 @@ import re
 import unicodedata
 import numpy as np
 import pystow
-import subprocess
 import zipfile
 from jpype import startJVM, getDefaultJVMPath
 from jpype import JClass, JVMNotFoundException, isJVMStarted
