@@ -3,6 +3,7 @@
 ![Workflow](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/actions/workflows/Check_errors.yml/badge.svg)
 [![GitHub issues](https://img.shields.io/github/issues/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/issues/)
 [![GitHub contributors](https://img.shields.io/github/contributors/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/graphs/contributors/)
+[![tensorflow](https://img.shields.io/badge/TensorFlow-2.10.1-FF6F00.svg?style=flat&logo=tensorflow)](https://www.tensorflow.org)
 [![GitHub release](https://img.shields.io/github/release/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/releases/)
 [![PyPI version fury.io](https://badge.fury.io/py/STOUT-pypi.svg)](https://pypi.org/project/STOUT-pypi/)
 ![versions](https://img.shields.io/pypi/pyversions/STOUT-pypi.svg)
@@ -24,6 +25,12 @@ $ bash Miniconda3-latest-Linux-x86_64.sh
 ```
 ## How to install STOUT
 
+## Install directly using PyPi
+```shell
+pip install STOUT-pypi
+```
+
+## In a conda environment
 ```shell
 $ sudo apt update
 $ sudo apt install unzip
@@ -33,12 +40,6 @@ $ conda install pip
 $ python -m pip install -U pip
 $ pip install git+https://github.com/Kohulan/Smiles-TO-iUpac-Translator.git
 ```
-
-## Py-Pi installation instructions coming soon,
-```shell
-pip install STOUT-pypi==2.0.2
-```
-
 
 ## Simple usage
 ```python3
