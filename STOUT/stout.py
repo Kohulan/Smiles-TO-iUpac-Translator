@@ -5,13 +5,17 @@ import os
 import pickle
 import pystow
 import re
+import logging
 from .repack import helper
 
+# Silence tensorflow model loading warnings.
+logging.getLogger("absl").setLevel("ERROR")
+
+# Silence tensorflow errors. optional not recommened if your model is not working properly.
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
-
 # Print tensorflow version
-print("Tensorflow version: " + tf.__version__)
+# print("Tensorflow version: " + tf.__version__)
 
 # Always select a GPU if available
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
