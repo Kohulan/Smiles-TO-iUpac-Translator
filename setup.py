@@ -22,7 +22,6 @@ setuptools.setup(
         "tensorflow==2.10.1",
         "pystow",
         "unicodedata2",
-        "rdkit-pypi",
         "jpype1",
     ],
     package_data={"STOUT": ["repack/*.*", "trainer/*.*"]},
