@@ -1,5 +1,5 @@
-tensorflow-gpu==2.9.0
+tensorflow-gpu==2.1.0
 pystow
 unicodedata2
-rdkit-pypi
+rdkit
 jpype1
