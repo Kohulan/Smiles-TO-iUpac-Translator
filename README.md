@@ -32,11 +32,8 @@ pip install STOUT-pypi
 
 ## In a conda environment
 ```shell
-$ sudo apt update
-$ sudo apt install unzip
-$ conda create --name STOUT python=3.8.0
+$ conda create --name STOUT python=3.8
 $ conda activate STOUT
-$ conda install pip
 $ python -m pip install -U pip
 $ pip install git+https://github.com/Kohulan/Smiles-TO-iUpac-Translator.git
 ```
