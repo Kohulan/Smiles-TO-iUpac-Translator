@@ -15,7 +15,7 @@ setuptools.setup(
     description="STOUT V2.0 - Smiles TO iUpac Translator Version 2.0",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/Kohulan/STOUT-2",
+    url="https://github.com/Kohulan/Smiles-TO-iUpac-Translator",
     packages=setuptools.find_packages(),
     license="MIT",
     install_requires=[
