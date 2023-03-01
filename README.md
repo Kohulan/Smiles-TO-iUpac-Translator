@@ -32,10 +32,14 @@ pip install STOUT-pypi
 
 ## In a conda environment
 ```shell
-$ conda create --name STOUT python=3.8
-$ conda activate STOUT
-$ python -m pip install -U pip
-$ pip install git+https://github.com/Kohulan/Smiles-TO-iUpac-Translator.git
+conda create --name STOUT python=3.8 
+conda activate STOUT
+conda install -c decimer stout-pypi
+```
+
+## Staright from the repository
+```shell
+pip install git+https://github.com/Kohulan/Smiles-TO-iUpac-Translator.git
 ```
 
 ## Simple usage
