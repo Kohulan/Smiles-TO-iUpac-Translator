@@ -71,7 +71,7 @@ def translate_forward(smiles: str) -> str:
     smiles = smiles.replace("\\/", "/")
     smiles_canon = helper.get_smiles_cdk(smiles)
     if smiles_canon:
-        splitted_list = list(smiles)
+        splitted_list = list(smiles_canon)
         tokenized_SMILES = re.sub(
             r"\s+(?=[a-z])", "", " ".join(map(str, splitted_list))
         )
