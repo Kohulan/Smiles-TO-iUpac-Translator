@@ -37,7 +37,7 @@ conda activate STOUT
 conda install -c decimer stout-pypi
 ```
 
-## Staright from the repository
+## Straight from the repository
 ```shell
 pip install git+https://github.com/Kohulan/Smiles-TO-iUpac-Translator.git
 ```
