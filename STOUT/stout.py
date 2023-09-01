@@ -43,19 +43,7 @@ reloaded_forward = tf.saved_model.load(default_path.as_posix() + "/translator_fo
 # Load the packed model forward
 reloaded_reverse = tf.saved_model.load(default_path.as_posix() + "/translator_reverse")
 
-
-def translate_forward(smiles: str) -> str:
-    """Takes user input splits them into words and generates tokens.
-    Tokens are then passed to the model and the model predicted tokens are retrieved.
-    The predicted tokens gets detokenized and the final result is returned in a string format.
-
-    Args:
-        smiles (str): user input SMILES in string format.
-
-    Returns:
-        result (str): The predicted IUPAC names in string format.
-    """
-
+def load_forward_translation_utils():
     # Load important pickle files which consists the tokenizers and the maxlength setting
     inp_lang = pickle.load(
         open(default_path.as_posix() + "/assets/tokenizer_input.pkl", "rb")
@@ -66,35 +54,9 @@ def translate_forward(smiles: str) -> str:
     inp_max_length = pickle.load(
         open(default_path.as_posix() + "/assets/max_length_inp.pkl", "rb")
     )
-    if len(smiles) == 0:
-        return ""
-    smiles = smiles.replace("\\/", "/")
-    smiles_canon = helper.get_smiles_cdk(smiles)
-    if smiles_canon:
-        splitted_list = list(smiles_canon)
-        tokenized_SMILES = re.sub(
-            r"\s+(?=[a-z])", "", " ".join(map(str, splitted_list))
-        )
-        decoded = helper.tokenize_input(tokenized_SMILES, inp_lang, inp_max_length)
-        result_predited = reloaded_forward(decoded)
-        result = helper.detokenize_output(result_predited, targ_lang)
-        return result
-    else:
-        return "Could not generate IUPAC name for SMILES provided."
+    return inp_lang, targ_lang, inp_max_length
 
-
-def translate_reverse(iupacname: str) -> str:
-    """Takes user input splits them into words and generates tokens.
-    Tokens are then passed to the model and the model predicted tokens are retrieved.
-    The predicted tokens gets detokenized and the final result is returned in a string format.
-
-    Args:
-        iupacname (str): user input IUPAC names in string format.
-
-    Returns:
-        result (str): The predicted SMILES in string format.
-    """
-
+def load_reverse_translation_utils():
     # Load important pickle files which consists the tokenizers and the maxlength setting
     targ_lang = pickle.load(
         open(default_path.as_posix() + "/assets/tokenizer_input.pkl", "rb")
@@ -105,12 +67,82 @@ def translate_reverse(iupacname: str) -> str:
     inp_max_length = pickle.load(
         open(default_path.as_posix() + "/assets/max_length_targ.pkl", "rb")
     )
+    return inp_lang, targ_lang, inp_max_length
+
+
+def translate_forward(smiles: str, add_confidence: False) -> str:
+    """Takes user input splits them into words and generates tokens.
+    Tokens are then passed to the model and the model predicted tokens are retrieved.
+    The predicted tokens get detokenized and the final result is returned in a string format.
+    If add_confidence is true, a list of tuples is returned, where the first element is
+    the token and the second element is the confidence value.
+
+    Args:
+        smiles (str): user input SMILES in string format.
+        add_confidence (bool): If True, the confidence values of the predicted tokens
+            are returned as well.
+
+    Returns:
+        result (str): The predicted IUPAC names in string format.
+        OR
+        result(List[tuples]) Tokens, confidence values
+    """
+    # TODO: loading this for every call is inefficient
+    # --> move to init of a translator class
+    inp_lang, targ_lang, inp_max_length = load_forward_translation_utils()
+
+    if len(smiles) == 0:
+        return ""
+    smiles = smiles.replace("\\/", "/")
+    smiles_canon = helper.get_smiles_cdk(smiles)
+    if smiles_canon:
+        splitted_list = list(smiles_canon)
+        tokenized_SMILES = re.sub(
+            r"\s+(?=[a-z])", "", " ".join(map(str, splitted_list))
+        )
+        decoded = helper.tokenize_input(tokenized_SMILES, inp_lang, inp_max_length)
+        result_predited, confidence_array = reloaded_forward(decoded)
+        if add_confidence:
+            result = helper.detokenize_output_add_confidence(result_predited,
+                                                             confidence_array,
+                                                             targ_lang)
+        else:
+            result = helper.detokenize_output(result_predited, targ_lang)
+        return result
+    else:
+        return "Could not generate IUPAC name for SMILES provided."
+
+
+def translate_reverse(iupacname: str, add_confidence: False) -> str:
+    """Takes user input splits them into words and generates tokens.
+    Tokens are then passed to the model and the model predicted tokens are retrieved.
+    The predicted tokens get detokenized and the final result is returned in a string format.
+    If add_confidence is true, a list of tuples is returned, where the first element is
+    the token and the second element is the confidence value.
+
+    Args:
+        iupacname (str): user input IUPAC names in string format.
+        add_confidence (bool): If True, the confidence values of the predicted tokens
+            are returned as well.
+
+    Returns:
+        result (str): The predicted SMILES in string format.
+        OR
+        result(List[tuples]) Tokens, confidence values
+    """
+    # TODO: loading this for every call is inefficient
+    # --> move to init of a translator class
+    inp_lang, targ_lang, inp_max_length = load_reverse_translation_utils()
 
     splitted_list = list(iupacname)
     tokenized_IUPACname = " ".join(map(str, splitted_list))
     decoded = helper.tokenize_input(tokenized_IUPACname, inp_lang, inp_max_length)
 
-    result_predited = reloaded_reverse(decoded)
-    result = helper.detokenize_output(result_predited, targ_lang)
-
+    result_predited, confidence_array = reloaded_forward(decoded)
+    if add_confidence:
+        result = helper.detokenize_output_add_confidence(result_predited,
+                                                         confidence_array,
+                                                         targ_lang)
+    else:
+        result = helper.detokenize_output(result_predited, targ_lang)
     return result

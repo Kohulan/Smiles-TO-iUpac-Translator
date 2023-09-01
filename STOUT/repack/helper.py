@@ -5,6 +5,7 @@ import re
 import unicodedata
 import numpy as np
 import pystow
+from typing import List, Tuple, Dict
 import zipfile
 from jpype import startJVM, getDefaultJVMPath
 from jpype import JClass, JVMNotFoundException, isJVMStarted
@@ -120,7 +121,10 @@ def tokenize_input(input_SMILES: str, inp_lang, inp_max_length: int) -> np.array
     return tokenized_input
 
 
-def detokenize_output(predicted_array: np.array, targ_lang) -> str:
+def detokenize_output(
+    predicted_array: np.array,
+    targ_lang
+) -> str:
     """This function takes a predited input array and returns
        a IUPAC name by detokenizing the input.
 
@@ -142,6 +146,32 @@ def detokenize_output(predicted_array: np.array, targ_lang) -> str:
     )
 
     return prediction
+
+def detokenize_output_add_confidence(
+    predicted_array: tf.Tensor,
+    confidence_array: tf.Tensor,
+    targ_lang: Dict,
+) -> List[Tuple[str, float]]:
+    """
+    This function takes the predicted array of tokens as well as the confidence values
+    returned by the Transformer Decoder and returns a list of tuples
+    that contain each token and the confidence value.
+
+    Args:
+        predicted_array (tf.Tensor): Transformer Decoder output array (predicted tokens)
+
+    Returns:
+        str: SMILES string
+    """
+    prediction_with_confidence = [
+        (
+            targ_lang.index_word[predicted_array[0].numpy()[i]],
+            confidence_array[i].numpy(),
+        )
+        for i in range(len(confidence_array))
+    ]
+    prediction_with_confidence = prediction_with_confidence[1:]
+    return prediction_with_confidence
 
 
 def create_look_ahead_mask(size):
