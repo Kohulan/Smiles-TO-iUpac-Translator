@@ -305,7 +305,8 @@ class Transformer(tf.keras.Model):
             num_layers, d_model, num_heads, dff, target_vocab_size, pe_target, rate
         )
 
-        self.final_layer = tf.keras.layers.Dense(target_vocab_size)
+        self.final_layer = tf.keras.layers.Dense(target_vocab_size,
+                                                 activation="softmax")
 
     def call(self, inputs, training):
 
