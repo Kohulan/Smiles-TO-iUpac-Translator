@@ -33,6 +33,7 @@ if not isJVMStarted():
 
 cdk_base = "org.openscience.cdk"
 
+
 # Converts the unicode file to ascii
 def unicode_to_ascii(s: str) -> str:
     """Converts a unicode string to an ASCII string
@@ -121,10 +122,7 @@ def tokenize_input(input_SMILES: str, inp_lang, inp_max_length: int) -> np.array
     return tokenized_input
 
 
-def detokenize_output(
-    predicted_array: np.array,
-    targ_lang
-) -> str:
+def detokenize_output(predicted_array: np.array, targ_lang) -> str:
     """This function takes a predited input array and returns
        a IUPAC name by detokenizing the input.
 
@@ -146,6 +144,7 @@ def detokenize_output(
     )
 
     return prediction
+
 
 def detokenize_output_add_confidence(
     predicted_array: tf.Tensor,

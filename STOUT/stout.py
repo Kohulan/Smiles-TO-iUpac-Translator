@@ -43,6 +43,7 @@ reloaded_forward = tf.saved_model.load(default_path.as_posix() + "/translator_fo
 # Load the packed model forward
 reloaded_reverse = tf.saved_model.load(default_path.as_posix() + "/translator_reverse")
 
+
 def load_forward_translation_utils():
     # Load important pickle files which consists the tokenizers and the maxlength setting
     inp_lang = pickle.load(
@@ -55,6 +56,7 @@ def load_forward_translation_utils():
         open(default_path.as_posix() + "/assets/max_length_inp.pkl", "rb")
     )
     return inp_lang, targ_lang, inp_max_length
+
 
 def load_reverse_translation_utils():
     # Load important pickle files which consists the tokenizers and the maxlength setting
@@ -103,9 +105,9 @@ def translate_forward(smiles: str, add_confidence: False) -> str:
         decoded = helper.tokenize_input(tokenized_SMILES, inp_lang, inp_max_length)
         result_predited, confidence_array = reloaded_forward(decoded)
         if add_confidence:
-            result = helper.detokenize_output_add_confidence(result_predited,
-                                                             confidence_array,
-                                                             targ_lang)
+            result = helper.detokenize_output_add_confidence(
+                result_predited, confidence_array, targ_lang
+            )
         else:
             result = helper.detokenize_output(result_predited, targ_lang)
         return result
@@ -140,9 +142,9 @@ def translate_reverse(iupacname: str, add_confidence: False) -> str:
 
     result_predited, confidence_array = reloaded_forward(decoded)
     if add_confidence:
-        result = helper.detokenize_output_add_confidence(result_predited,
-                                                         confidence_array,
-                                                         targ_lang)
+        result = helper.detokenize_output_add_confidence(
+            result_predited, confidence_array, targ_lang
+        )
     else:
         result = helper.detokenize_output(result_predited, targ_lang)
     return result

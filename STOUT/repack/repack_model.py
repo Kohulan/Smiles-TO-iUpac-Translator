@@ -138,7 +138,7 @@ class Translator(tf.Module):
             predictions = predictions[:, -1:, :]  # (batch_size, 1, vocab_size)
 
             predicted_id = tf.argmax(predictions, axis=-1)
-            
+
             confidence = predictions[0, 0, int(predicted_id[0, 0])]
             output_array = output_array.write(t + 1, predicted_id[0])
             confidence_array = confidence_array.write(t + 1, confidence)

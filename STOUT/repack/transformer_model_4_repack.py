@@ -138,7 +138,6 @@ class EncoderLayer(tf.keras.layers.Layer):
         self.dropout2 = tf.keras.layers.Dropout(rate)
 
     def call(self, x, training, mask):
-
         attn_output, _ = self.mha(x, x, x, mask)  # (batch_size, input_seq_len, d_model)
         attn_output = self.dropout1(attn_output, training=training)
         out1 = self.layernorm1(x + attn_output)  # (batch_size, input_seq_len, d_model)
@@ -219,7 +218,6 @@ class Encoder(tf.keras.layers.Layer):
         self.dropout = tf.keras.layers.Dropout(rate)
 
     def call(self, x, training, mask):
-
         seq_len = tf.shape(x)[1]
 
         # adding embedding and position encoding.
@@ -260,7 +258,6 @@ class Decoder(tf.keras.layers.Layer):
         self.dropout = tf.keras.layers.Dropout(rate)
 
     def call(self, x, enc_output, training, look_ahead_mask, padding_mask):
-
         seq_len = tf.shape(x)[1]
         attention_weights = {}
 
@@ -305,11 +302,11 @@ class Transformer(tf.keras.Model):
             num_layers, d_model, num_heads, dff, target_vocab_size, pe_target, rate
         )
 
-        self.final_layer = tf.keras.layers.Dense(target_vocab_size,
-                                                 activation="softmax")
+        self.final_layer = tf.keras.layers.Dense(
+            target_vocab_size, activation="softmax"
+        )
 
     def call(self, inputs, training):
-
         inp, tar, enc_padding_mask, look_ahead_mask, dec_padding_mask = inputs
 
         enc_output = self.tokenizer(
