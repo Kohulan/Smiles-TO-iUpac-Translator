@@ -75,7 +75,6 @@ def read_tfrecord(example):
 
 
 def get_training_dataset(batch_size=BATCH_SIZE, buffered_size=BUFFER_SIZE):
-
     options = tf.data.Options()
     filenames = sorted(
         tf.io.gfile.glob(
@@ -98,7 +97,6 @@ def get_training_dataset(batch_size=BATCH_SIZE, buffered_size=BUFFER_SIZE):
 
 
 def get_validation_dataset(batch_size=BATCH_SIZE, buffered_size=BUFFER_SIZE):
-
     options = tf.data.Options()
     filenames = sorted(
         tf.io.gfile.glob(
@@ -361,7 +359,6 @@ for epoch in range(start_epoch, EPOCHS):
         validation_batch += 1
 
         if validation_batch == validation_steps:
-
             print(
                 "Validation_Loss {:.4f} Accuracy {:.4f}".format(
                     validation_loss.result(), validation_accuracy.result()

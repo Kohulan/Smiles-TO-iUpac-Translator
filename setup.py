@@ -4,16 +4,16 @@ import setuptools
 import platform
 
 if (platform.processor() == 'arm' or platform.processor() == 'i386') and platform.system() == 'Darwin':
-    tensorflow_os = "tensorflow-macos==2.10.0"
+    tensorflow_os = "tensorflow-macos==2.15.0"
 else:
-    tensorflow_os = "tensorflow==2.10.1"
+    tensorflow_os = "tensorflow==2.15.0"
     
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="STOUT-pypi",
-    version="2.0.6",
+    version="2.0.7",
     author="Kohulan Rajan",
     author_email="kohulan.rajan@uni-jena.de",
     maintainer="Kohulan Rajan",
