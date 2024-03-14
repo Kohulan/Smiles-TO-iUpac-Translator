@@ -72,7 +72,7 @@ def load_reverse_translation_utils():
     return inp_lang, targ_lang, inp_max_length
 
 
-def translate_forward(smiles: str, add_confidence: False) -> str:
+def translate_forward(smiles: str, add_confidence: bool = False) -> str:
     """Takes user input splits them into words and generates tokens.
     Tokens are then passed to the model and the model predicted tokens are retrieved.
     The predicted tokens get detokenized and the final result is returned in a string format.
@@ -115,7 +115,7 @@ def translate_forward(smiles: str, add_confidence: False) -> str:
         return "Could not generate IUPAC name for SMILES provided."
 
 
-def translate_reverse(iupacname: str, add_confidence: False) -> str:
+def translate_reverse(iupacname: str, add_confidence: bool = False) -> str:
     """Takes user input splits them into words and generates tokens.
     Tokens are then passed to the model and the model predicted tokens are retrieved.
     The predicted tokens get detokenized and the final result is returned in a string format.
