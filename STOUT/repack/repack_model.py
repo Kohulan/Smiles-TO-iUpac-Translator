@@ -115,6 +115,7 @@ class Translator(tf.Module):
 
         output_array = tf.TensorArray(dtype=tf.int64, size=0, dynamic_size=True)
         output_array = output_array.write(0, start)
+        confidence_array = tf.TensorArray(dtype=tf.float32, size=0, dynamic_size=True)
 
         for t in tf.range(targ_max_length):
             output = tf.transpose(output_array.stack())
@@ -137,6 +138,10 @@ class Translator(tf.Module):
             predictions = predictions[:, -1:, :]  # (batch_size, 1, vocab_size)
 
             predicted_id = tf.argmax(predictions, axis=-1)
+            
+            confidence = predictions[0, 0, int(predicted_id[0, 0])]
+            output_array = output_array.write(t + 1, predicted_id[0])
+            confidence_array = confidence_array.write(t + 1, confidence)
 
             output_array = output_array.write(t + 1, predicted_id[0])
 
@@ -144,7 +149,7 @@ class Translator(tf.Module):
                 break
         output = tf.transpose(output_array.stack())
 
-        return output, sentence
+        return output, confidence_array.stack()
 
 
 # Create an instance of this Translator class
@@ -177,7 +182,7 @@ class ExportTranslator(tf.Module):
             tf.Tensor[tf.int64]: predicted output as an array.
         """
 
-        (result, tokens) = self.translator(sentence)
+        result = self.translator(sentence)
 
         return result
 
