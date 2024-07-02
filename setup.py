@@ -31,6 +31,7 @@ setuptools.setup(
         "pystow",
         "unicodedata2",
         "jpype1",
+        "rdkit",
     ],
     package_data={"STOUT": ["repack/*.*", "trainer/*.*"]},
     classifiers=[
