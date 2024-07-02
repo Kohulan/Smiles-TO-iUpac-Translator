@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np
 from typing import Tuple, Optional
 
+
 def get_angles(pos: int, i: int, d_model: int) -> np.ndarray:
     """
     Computes the angles for the positional encoding.
@@ -44,7 +45,9 @@ def positional_encoding(position: int, d_model: int) -> tf.Tensor:
     return tf.cast(pos_encoding, dtype=tf.float32)
 
 
-def scaled_dot_product_attention(q: tf.Tensor, k: tf.Tensor, v: tf.Tensor, mask: Optional[tf.Tensor] = None) -> Tuple[tf.Tensor, tf.Tensor]:
+def scaled_dot_product_attention(
+    q: tf.Tensor, k: tf.Tensor, v: tf.Tensor, mask: Optional[tf.Tensor] = None
+) -> Tuple[tf.Tensor, tf.Tensor]:
     """
     Calculate the attention weights.
     q, k, v must have matching leading dimensions.

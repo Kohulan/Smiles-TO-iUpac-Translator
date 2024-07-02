@@ -73,8 +73,8 @@ def load_reverse_translation_utils() -> tuple:
     """
     Loads necessary utilities for reverse translation from pickle files.
 
-    This function loads the input and target tokenizers as well as the 
-    maximum length setting for input sequences. The tokenizers are loaded 
+    This function loads the input and target tokenizers as well as the
+    maximum length setting for input sequences. The tokenizers are loaded
     from pickle files located in the 'assets' directory under the default path.
 
     Returns:

@@ -12,13 +12,13 @@ from datetime import datetime
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'STOUT - Smiles-TO-iUpac-Translator'
+project = "STOUT - Smiles-TO-iUpac-Translator"
 version = STOUT.__version__
 current_year = datetime.today().year
 copyright = "2021-{}, Kohulan Rajan at the Friedrich Schiller University Jena".format(
     current_year
 )
-author = 'Kohulan Rajan'
+author = "Kohulan Rajan"
 rst_prolog = """
 .. |current_year| replace:: {}
 """.format(
@@ -37,8 +37,8 @@ extensions = [
     "sphinx.ext.viewcode",
 ]
 
-templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+templates_path = ["_templates"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 source_suffix = ".rst"
 
 # The master toctree document.
@@ -55,7 +55,7 @@ todo_include_todos = False
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
+html_theme = "alabaster"
 
 html_theme_options = {
     "light_css_variables": {
@@ -83,6 +83,6 @@ html_theme_options = {
     "top_of_page_button": "edit",
 }
 
-html_static_path = ['_static']
+html_static_path = ["_static"]
 html_favicon = "_static/STOUT.svg"
 html_logo = "_static/STOUT.png"

@@ -17,7 +17,9 @@ file_out.flush()
 file_out.close()
 
 # STOUT - SMILES to IUPAC names example
-file_smiles = open("test_data/SMILES_test.txt", "r")  # file is available in the Github repository
+file_smiles = open(
+    "test_data/SMILES_test.txt", "r"
+)  # file is available in the Github repository
 file_out = open("IUPAC_predictions", "w")
 
 for i, line in enumerate(file_smiles):
