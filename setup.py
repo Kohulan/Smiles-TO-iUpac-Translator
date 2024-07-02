@@ -3,11 +3,13 @@
 import setuptools
 import platform
 
-if (platform.processor() == 'arm' or platform.processor() == 'i386') and platform.system() == 'Darwin':
+if (
+    platform.processor() == "arm" or platform.processor() == "i386"
+) and platform.system() == "Darwin":
     tensorflow_os = "tensorflow-macos==2.15.0"
 else:
     tensorflow_os = "tensorflow==2.15.0"
-    
+
 with open("README.md", "r") as fh:
     long_description = fh.read()
 

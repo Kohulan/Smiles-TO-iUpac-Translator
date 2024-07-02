@@ -1,13 +1,34 @@
 import tensorflow as tf
 import numpy as np
+from typing import Tuple, Optional
 
+def get_angles(pos: int, i: int, d_model: int) -> np.ndarray:
+    """
+    Computes the angles for the positional encoding.
 
-def get_angles(pos, i, d_model):
+    Args:
+        pos (int): The position index.
+        i (int): The dimension index.
+        d_model (int): The model dimensionality.
+
+    Returns:
+        np.ndarray: The computed angles for the given position and dimension.
+    """
     angle_rates = 1 / np.power(10000, (2 * (i // 2)) / np.float32(d_model))
     return pos * angle_rates
 
 
-def positional_encoding(position, d_model):
+def positional_encoding(position: int, d_model: int) -> tf.Tensor:
+    """
+    Generates the positional encoding for a given position and model dimensionality.
+
+    Args:
+        position (int): The maximum position index.
+        d_model (int): The dimensionality of the model.
+
+    Returns:
+        tf.Tensor: A tensor representing the positional encoding.
+    """
     angle_rads = get_angles(
         np.arange(position)[:, np.newaxis], np.arange(d_model)[np.newaxis, :], d_model
     )
@@ -23,24 +44,24 @@ def positional_encoding(position, d_model):
     return tf.cast(pos_encoding, dtype=tf.float32)
 
 
-def scaled_dot_product_attention(q, k, v, mask):
-    """Calculate the attention weights.
+def scaled_dot_product_attention(q: tf.Tensor, k: tf.Tensor, v: tf.Tensor, mask: Optional[tf.Tensor] = None) -> Tuple[tf.Tensor, tf.Tensor]:
+    """
+    Calculate the attention weights.
     q, k, v must have matching leading dimensions.
     k, v must have matching penultimate dimension, i.e.: seq_len_k = seq_len_v.
-    The mask has different shapes depending on its type(padding or look ahead)
+    The mask has different shapes depending on its type (padding or look ahead)
     but it must be broadcastable for addition.
 
     Args:
-      q: query shape == (..., seq_len_q, depth)
-      k: key shape == (..., seq_len_k, depth)
-      v: value shape == (..., seq_len_v, depth_v)
-      mask: Float tensor with shape broadcastable
-            to (..., seq_len_q, seq_len_k). Defaults to None.
+        q: query shape == (..., seq_len_q, depth)
+        k: key shape == (..., seq_len_k, depth)
+        v: value shape == (..., seq_len_v, depth_v)
+        mask: Float tensor with shape broadcastable
+              to (..., seq_len_q, seq_len_k). Defaults to None.
 
     Returns:
-      output, attention_weights
+        Tuple[tf.Tensor, tf.Tensor]: output, attention_weights
     """
-
     matmul_qk = tf.matmul(q, k, transpose_b=True)  # (..., seq_len_q, seq_len_k)
 
     # scale matmul_qk

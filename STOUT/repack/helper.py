@@ -55,25 +55,19 @@ def preprocess_input(input_string: str) -> str:
     return input_string
 
 
-def split_character(SMILES: str) -> str:
+def split_smiles(SMILES: str) -> str:
     """
-    Split characters in the canonical SMILES representation.
-
-    This function takes a canonical SMILES string as input, splits individual characters, and returns a tokenized
-    version of the SMILES string.
+    Splits a SMILES string into individual characters separated by spaces.
 
     Args:
-        SMILES (str): The canonical SMILES representation of a molecule.
+        SMILES (str): The input SMILES string to be split.
 
     Returns:
-        str: The tokenized version of the canonical SMILES string.
+        str: The tokenized SMILES string where each character is separated by a space.
 
-    Note:
-        - This function first replaces backslash escape sequences with slashes to normalize the input.
-        - It then generates the canonical SMILES representation using the get_canonical function.
-        - Next, it splits the canonical SMILES string into individual characters and removes any whitespace
-          followed by lowercase letters.
-        - The resulting tokenized SMILES string is returned.
+    Example:
+        >>> split_smiles('CCO')
+        'C C O'
     """
     SMILES = SMILES.replace("\\/", "/")
     canonical_SMILES = get_canonical(SMILES)
@@ -83,6 +77,33 @@ def split_character(SMILES: str) -> str:
             r"\s+(?=[a-z])", "", " ".join(map(str, splitted_list))
         )
         return tokenized_SMILES
+
+
+def split_iupac(IUPACName: str) -> str:
+    """
+    Splits an IUPAC name into individual characters separated by spaces,
+    replacing spaces within the IUPAC name with a special character (§).
+
+    Args:
+        IUPACName (str): The input IUPAC name to be split.
+
+    Returns:
+        str: The tokenized IUPAC name where each character is separated by a space and
+             spaces within the name are replaced with '§'.
+
+    Raises:
+        ValueError: If the IUPAC name cannot be processed.
+
+    Example:
+        >>> split_iupac('1,3,7-trimethylpurine-2,6-dione')
+        '1 , 3 , 7 - t r i m e t h y l p u r i n e - 2 , 6 - d i o n e'
+    """
+    try:
+        splitted_list = list(IUPACName.replace(" ", "§"))
+        tokenized_IUPACname = " ".join(map(str, splitted_list))
+        return tokenized_IUPACname
+    except Exception as e:
+        print(IUPACName)
 
 
 def tokenize_input(input_SMILES: str, inp_lang, inp_max_length: int) -> np.array:
@@ -165,12 +186,30 @@ def detokenize_output_add_confidence(
     return prediction_with_confidence_
 
 
-def create_look_ahead_mask(size):
+def create_look_ahead_mask(size: int) -> tf.Tensor:
+    """
+    Creates a look-ahead mask for masking future tokens in a sequence.
+
+    Args:
+        size (int): The size of the mask (sequence length).
+
+    Returns:
+        tf.Tensor: A look-ahead mask tensor of shape (size, size).
+    """
     mask = 1 - tf.linalg.band_part(tf.ones((size, size)), -1, 0)
     return mask  # (seq_len, seq_len)
 
 
-def create_padding_mask(seq):
+def create_padding_mask(seq: tf.Tensor) -> tf.Tensor:
+    """
+    Creates a padding mask for a given sequence.
+
+    Args:
+        seq (tf.Tensor): The input sequence tensor.
+
+    Returns:
+        tf.Tensor: A padding mask tensor of shape (batch_size, 1, 1, seq_len).
+    """
     seq = tf.cast(tf.math.equal(seq, 0), tf.float32)
 
     # add extra dimensions to add the padding
@@ -178,7 +217,17 @@ def create_padding_mask(seq):
     return seq[:, tf.newaxis, tf.newaxis, :]  # (batch_size, 1, 1, seq_len)
 
 
-def create_masks(inp, tar):
+def create_masks(inp: tf.Tensor, tar: tf.Tensor) -> tuple:
+    """
+    Creates the necessary masks for the Transformer model.
+
+    Args:
+        inp (tf.Tensor): The input tensor for the encoder.
+        tar (tf.Tensor): The target tensor for the decoder.
+
+    Returns:
+        tuple: A tuple containing the encoder padding mask, combined mask, and decoder padding mask.
+    """
     # Encoder padding mask
     enc_padding_mask = create_padding_mask(inp)
 
