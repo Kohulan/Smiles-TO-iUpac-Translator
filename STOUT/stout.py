@@ -4,7 +4,6 @@ import tensorflow as tf
 import os
 import pickle
 import pystow
-import re
 import logging
 from .repack import helper
 

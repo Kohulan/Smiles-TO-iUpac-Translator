@@ -1,8 +1,5 @@
-import os
 import tensorflow as tf
-import tensorflow.keras as keras
 import re
-import unicodedata
 import numpy as np
 import pystow
 from typing import List, Tuple, Dict
@@ -103,6 +100,7 @@ def split_iupac(IUPACName: str) -> str:
         tokenized_IUPACname = " ".join(map(str, splitted_list))
         return tokenized_IUPACname
     except Exception as e:
+        print(e)
         print(IUPACName)
 
 

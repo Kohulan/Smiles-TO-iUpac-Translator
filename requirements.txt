@@ -2,3 +2,4 @@ tensorflow-gpu==2.15.0
 pystow
 unicodedata2
 jpype1
+rdkit
