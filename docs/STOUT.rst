@@ -20,6 +20,22 @@ STOUT.stout module
    :undoc-members:
    :show-inheritance:
 
+STOUT.repack.helper module
+------------------
+
+.. automodule:: STOUT.repack.helper 
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+STOUT.repack.repack_model module
+------------------
+
+.. automodule:: STOUT.repack.repack_model 
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 
