@@ -3,12 +3,12 @@
 ![Workflow](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/actions/workflows/Check_errors.yml/badge.svg)
 [![GitHub issues](https://img.shields.io/github/issues/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/issues/)
 [![GitHub contributors](https://img.shields.io/github/contributors/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/graphs/contributors/)
-[![tensorflow](https://img.shields.io/badge/TensorFlow-2.10.1-FF6F00.svg?style=flat&logo=tensorflow)](https://www.tensorflow.org)
+[![tensorflow](https://img.shields.io/badge/TensorFlow-2.15.0-FF6F00.svg?style=flat&logo=tensorflow)](https://www.tensorflow.org)
 [![GitHub release](https://img.shields.io/github/release/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/releases/)
 [![PyPI version fury.io](https://badge.fury.io/py/STOUT-pypi.svg)](https://pypi.org/project/STOUT-pypi/)
 ![versions](https://img.shields.io/pypi/pyversions/STOUT-pypi.svg)
 
-![GitHub Logo](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/blob/stout-1/important_assets/STOUT.png?raw=true)
+![GitHub Logo](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/blob/development/docs/_static/STOUT.png?raw=true)
 
 # STOUT V2.0 - Smiles TO iUpac Translator Version 2.0
 This repository contains STOUT-V2, SMILES to IUPAC name translator using transformers. STOUT-V2 can translate SMILES to IUPAC names and IUPAC names back to a valid SMILES string. STOUT-V1 is already published and for more details check [here](https://github.com/Kohulan/Smiles-TO-iUpac-Translator)
@@ -32,7 +32,7 @@ pip install STOUT-pypi
 
 ## In a conda environment
 ```shell
-conda create --name STOUT python=3.8 
+conda create --name STOUT python=3.10 
 conda activate STOUT
 conda install -c decimer stout-pypi
 ```
