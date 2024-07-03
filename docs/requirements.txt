@@ -1,0 +1,10 @@
+sphinx_autodoc_typehints
+tensorflow==2.15.0
+pystow
+unicodedata2
+jpype1
+rdkit
+furo
+nbsphinx
+sphinx_material
+sphinx_rtd_theme
