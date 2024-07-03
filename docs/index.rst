@@ -24,11 +24,11 @@ Install STOUT in the command line using pip:
 
    pip install STOUT-pypi
 
-   modules
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   modules
 
 Indices and tables
 ==================

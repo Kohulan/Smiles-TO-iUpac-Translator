@@ -6,9 +6,13 @@ This helps to reduce the clutter and for faster inference functions.
 
 import tensorflow as tf
 import os
+import sys
 import pickle
-import transformer_model_4_repack as nmt_model_transformer
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import helper
+import transformer_model_4_repack as nmt_model_transformer
+
 
 print(tf.__version__)
 
@@ -18,6 +22,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 print(tf.__version__)
 
 # Always select a GPU if available
+
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 # Scale memory growth as needed

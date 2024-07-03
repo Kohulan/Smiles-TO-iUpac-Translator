@@ -41,8 +41,8 @@ reloaded_reverse = tf.saved_model.load(default_path.as_posix() + "/translator_re
 
 
 def load_forward_translation_utils() -> tuple:
-    """
-    Loads essential utilities for forward translation, including input and target tokenizers and the maximum input length.
+    """Loads essential utilities for forward translation, including input and
+    target tokenizers and the maximum input length.
 
     This function loads pre-trained tokenizers for input and target languages from pickle files and sets the maximum length
     for input sequences. The pickle files are assumed to be located in the 'assets' directory relative to the default path.
@@ -69,8 +69,7 @@ def load_forward_translation_utils() -> tuple:
 
 
 def load_reverse_translation_utils() -> tuple:
-    """
-    Loads necessary utilities for reverse translation from pickle files.
+    """Loads necessary utilities for reverse translation from pickle files.
 
     This function loads the input and target tokenizers as well as the
     maximum length setting for input sequences. The tokenizers are loaded
@@ -97,21 +96,22 @@ def load_reverse_translation_utils() -> tuple:
 
 
 def translate_forward(smiles: str, add_confidence: bool = False) -> str:
-    """Takes user input splits them into words and generates tokens.
-    Tokens are then passed to the model and the model predicted tokens are retrieved.
-    The predicted tokens get detokenized and the final result is returned in a string format.
-    If add_confidence is true, a list of tuples is returned, where the first element is
-    the token and the second element is the confidence value.
+    """
+    Takes user input, splits them into words, and generates tokens. Tokens are
+    then passed to the model and the model-predicted tokens are retrieved. The
+    predicted tokens get detokenized and the final result is returned in a
+    string format. If add_confidence is true, a list of tuples is returned,
+    where the first element is the token and the second element is the
+    confidence value.
 
     Args:
-        smiles (str): user input SMILES in string format.
+        smiles (str): User input SMILES in string format.
         add_confidence (bool): If True, the confidence values of the predicted tokens
-            are returned as well.
+        are returned as well.
 
     Returns:
         result (str): The predicted IUPAC names in string format.
-        OR
-        result(List[tuples]) Tokens, confidence values
+        result (List[tuples]): Tokens and confidence values
     """
     # TODO: loading this for every call is inefficient
     # --> move to init of a translator class
@@ -136,16 +136,17 @@ def translate_forward(smiles: str, add_confidence: bool = False) -> str:
 
 
 def translate_reverse(iupacname: str, add_confidence: bool = False) -> str:
-    """Takes user input splits them into words and generates tokens.
-    Tokens are then passed to the model and the model predicted tokens are retrieved.
-    The predicted tokens get detokenized and the final result is returned in a string format.
-    If add_confidence is true, a list of tuples is returned, where the first element is
-    the token and the second element is the confidence value.
+    """Takes user input splits them into words and generates tokens. Tokens are
+    then passed to the model and the model predicted tokens are retrieved. The
+    predicted tokens get detokenized and the final result is returned in a
+    string format. If add_confidence is true, a list of tuples is returned,
+    where the first element is the token and the second element is the
+    confidence value.
 
     Args:
         iupacname (str): user input IUPAC names in string format.
         add_confidence (bool): If True, the confidence values of the predicted tokens
-            are returned as well.
+        are returned as well.
 
     Returns:
         result (str): The predicted SMILES in string format.
