@@ -27,7 +27,7 @@ default_path = pystow.join("STOUT-V2", "models")
 # model download location
 model_url = "https://zenodo.org/records/12542360/files/models.zip?download=1"
 model_path = str(default_path) + "/translator_forward/"
-
+print(model_path)
 # download models to a default location
 if not os.path.exists(model_path):
     helper.download_trained_weights(model_url, default_path)
@@ -91,7 +91,7 @@ def load_reverse_translation_utils() -> tuple:
     inp_lang = pickle.load(
         open(default_path.as_posix() + "/assets/tokenizer_target.pkl", "rb")
     )
-    inp_max_length = 1002
+    inp_max_length = 602
     return inp_lang, targ_lang, inp_max_length
 
 
@@ -162,7 +162,7 @@ def translate_reverse(iupacname: str, add_confidence: bool = False) -> str:
         splitted_name = helper.split_iupac(iupacname)
 
     decoded = helper.tokenize_input(splitted_name, inp_lang, inp_max_length)
-    result_predited, confidence_array = reloaded_forward(decoded)
+    result_predited, confidence_array = reloaded_reverse(decoded)
     if add_confidence:
         result = helper.detokenize_output_add_confidence(
             result_predited, confidence_array, targ_lang

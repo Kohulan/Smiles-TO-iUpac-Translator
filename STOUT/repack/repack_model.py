@@ -10,6 +10,7 @@ import sys
 import pickle
 import helper
 import transformer_model_4_repack as nmt_model_transformer
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 print(tf.__version__)
