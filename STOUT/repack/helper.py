@@ -27,7 +27,7 @@ def get_canonical(smiles: str) -> str:
         - If the input SMILES string is invalid (cannot be converted to a molecule), the function returns
           None.
     """
-    mol = Chem.MolFromSmiles(smiles)
+    mol = Chem.MolFromSmiles(smiles, sanitize=False)
     if mol:
         canonicalSMILES = Chem.MolToSmiles(mol, kekuleSmiles=True, isomericSmiles=True)
         return canonicalSMILES
