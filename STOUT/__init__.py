@@ -26,7 +26,7 @@ please raise a issue on the Github repository.
 
 """
 
-__version__ = "2.0.7"
+__version__ = "2.1.0"
 
 __all__ = [
     "STOUT",
