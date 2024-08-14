@@ -1,84 +1,151 @@
-[![License](https://img.shields.io/badge/License-MIT%202.0-blue.svg)](https://opensource.org/licenses/MIt)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-blue.svg)](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/graphs/commit-activity)
-![Workflow](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/actions/workflows/Check_errors.yml/badge.svg)
-[![GitHub issues](https://img.shields.io/github/issues/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/issues/)
-[![GitHub contributors](https://img.shields.io/github/contributors/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/graphs/contributors/)
-[![tensorflow](https://img.shields.io/badge/TensorFlow-2.15.0-FF6F00.svg?style=flat&logo=tensorflow)](https://www.tensorflow.org)
-[![GitHub release](https://img.shields.io/github/release/Kohulan/Smiles-TO-iUpac-Translator.svg)](https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/releases/)
-[![PyPI version fury.io](https://badge.fury.io/py/STOUT-pypi.svg)](https://pypi.org/project/STOUT-pypi/)
-![versions](https://img.shields.io/pypi/pyversions/STOUT-pypi.svg)
+<h1 align="center">
+  <br>
+  <a href="https://github.com/Kohulan/Smiles-TO-iUpac-Translator"><img src="https://github.com/Kohulan/Smiles-TO-iUpac-Translator/blob/development/docs/_static/STOUT.png?raw=true" alt="STOUT Logo" width="400"></a>
+  <br>
+V2.0
+  <br>
+</h1>
 
-![GitHub Logo](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/blob/development/docs/_static/STOUT.png?raw=true)
+<h4 align="center">Smiles TO iUpac Translator: Advanced Chemical Nomenclature Translation</h4>
 
-# STOUT V2.0 - Smiles TO iUpac Translator Version 2.0
-This repository contains STOUT-V2, SMILES to IUPAC name translator using transformers. STOUT-V2 can translate SMILES to IUPAC names and IUPAC names back to a valid SMILES string. STOUT-V1 is already published and for more details check [here](https://github.com/Kohulan/Smiles-TO-iUpac-Translator)
+<p align="center">
+  <a href="https://opensource.org/licenses/MIt">
+    <img src="https://img.shields.io/badge/License-MIT%202.0-blue.svg" alt="License">
+  </a>
+  <a href="https://github.com/Kohulan/Smiles-TO-iUpac-Translator/graphs/commit-activity">
+    <img src="https://img.shields.io/badge/Maintained%3F-yes-blue.svg" alt="Maintenance">
+  </a>
+  <a href="https://github.com/Kohulan/Smiles-TO-iUpac-Translator/actions/workflows/Check_errors.yml">
+    <img src="https://github.com/Kohulan/Smiles-TO-iUpac-Translator/actions/workflows/Check_errors.yml/badge.svg" alt="Workflow">
+  </a>
+  <br>
+  <a href="https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/issues/">
+    <img src="https://img.shields.io/github/issues/Kohulan/Smiles-TO-iUpac-Translator.svg" alt="GitHub issues">
+  </a>
+  <a href="https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/graphs/contributors/">
+    <img src="https://img.shields.io/github/contributors/Kohulan/Smiles-TO-iUpac-Translator.svg" alt="GitHub contributors">
+  </a>
+  <a href="https://www.tensorflow.org">
+    <img src="https://img.shields.io/badge/TensorFlow-2.15.0-FF6F00.svg?style=flat&logo=tensorflow" alt="tensorflow">
+  </a>
+  <br>
+  <a href="https://GitHub.com/Kohulan/Smiles-TO-iUpac-Translator/releases/">
+    <img src="https://img.shields.io/github/release/Kohulan/Smiles-TO-iUpac-Translator.svg" alt="GitHub release">
+  </a>
+  <a href="https://pypi.org/project/STOUT-pypi/">
+    <img src="https://badge.fury.io/py/STOUT-pypi.svg" alt="PyPI version">
+  </a>
+  <a href="https://pypi.org/project/STOUT-pypi/">
+    <img src="https://img.shields.io/pypi/pyversions/STOUT-pypi.svg" alt="Python versions">
+  </a>
+  <a href="https://doi.org/10.5281/zenodo.13318286">
+    <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.13318286.svg" alt="DOI">
+  </a>
+</p>
 
-#### OS-Support: Linux, MACOS and Windows (On Windows you can run STOUT inside the Ubuntu shell). But It is highly recommended to use a Linux system.
+<p align="center">
+  <a href="#key-features">Key Features</a> •
+  <a href="#installation">Installation</a> •
+  <a href="#how-to-use">How To Use</a> •
+  <a href="#acknowledgements">Acknowledgements</a> •
+  <a href="#citation">Citation</a>
+</p>
 
-# Usage
+<p align="center">
+  <img src="https://github.com/Kohulan/Smiles-TO-iUpac-Translator/raw/master/docs/_static/STOUT_demo.gif" alt="STOUT Demo">
+</p>
 
-### We suggest to use STOUT inside a Conda environment, which makes the dependencies to install easily.
-- Conda can be downloaded as part of the [Anaconda](https://www.anaconda.com/) or the [Miniconda](https://conda.io/en/latest/miniconda.html) plattforms (Python 3.7). We recommend to install miniconda3. Using Linux you can get it with:
-```shell
-$ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-$ bash Miniconda3-latest-Linux-x86_64.sh
-```
-## How to install STOUT
+## Key Features
 
-## Install directly using PyPi
-```shell
-pip install STOUT-pypi
-```
+<ul>
+  <li>🧪 Translate SMILES to IUPAC names</li>
+  <li>🔬 Convert IUPAC names back to valid SMILES strings</li>
+  <li>🤖 Powered by advanced transformer models</li>
+  <li>💻 Cross-platform support (Linux, macOS, Windows via Ubuntu shell)</li>
+  <li>🚀 High-performance chemical nomenclature translation</li>
+</ul>
 
-## In a conda environment
-```shell
-conda create --name STOUT python=3.10 
+## Installation
+
+<p>Choose your preferred installation method:</p>
+
+<details>
+<summary><b>📦 PyPI Installation</b></summary>
+<pre><code>pip install STOUT-pypi</code></pre>
+</details>
+
+<details>
+<summary><b>🐍 Conda Environment Setup</b></summary>
+<pre><code>conda create --name STOUT python=3.10 
 conda activate STOUT
-conda install -c decimer stout-pypi
-```
+conda install -c decimer stout-pypi</code></pre>
+</details>
 
-## Straight from the repository
-```shell
-pip install git+https://github.com/Kohulan/Smiles-TO-iUpac-Translator.git
-```
+<details>
+<summary><b>📥 Direct Repository Installation</b></summary>
+<pre><code>pip install git+https://github.com/Kohulan/Smiles-TO-iUpac-Translator.git</code></pre>
+</details>
 
-## Simple usage
-```python3
+## How To Use
 
+```python
 from STOUT import translate_forward, translate_reverse
 
 # SMILES to IUPAC name translation
-
 SMILES = "CN1C=NC2=C1C(=O)N(C(=O)N2C)C"
 IUPAC_name = translate_forward(SMILES)
-print("IUPAC name of "+SMILES+" is: "+IUPAC_name)
+print(f"🧪 IUPAC name of {SMILES} is: {IUPAC_name}")
 
 # IUPAC name to SMILES translation
-
 IUPAC_name = "1,3,7-trimethylpurine-2,6-dione"
 SMILES = translate_reverse(IUPAC_name)
-print("SMILES of "+IUPAC_name+" is: "+SMILES)
-
+print(f"🔬 SMILES of {IUPAC_name} is: {SMILES}")
 ```
 
-#### Happy Brewing... 🍺
-
-## How to cite us?
-
-Rajan, K., Zielesny, A. & Steinbeck, C. STOUT: SMILES to IUPAC names using neural machine translation. J Cheminform 13, 34 (2021). https://doi.org/10.1186/s13321-021-00512-4
-
-## Acknowledgement
-- Research supported with Cloud TPUs from Google's TPU Research Cloud (TRC) 
+## Acknowledgements
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/30716951/220350828-913e6645-6a0a-403c-bcb8-160d061d4606.png" width="500" class="center">
+  Research supported with Cloud TPUs from Google's TPU Research Cloud (TRC)
+  <br><br>
+  <img src="https://user-images.githubusercontent.com/30716951/220350828-913e6645-6a0a-403c-bcb8-160d061d4606.png" width="200">
 </p>
 
-# STOUT-V2 is part of DECIMER project
-[![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/raw/master/assets/DECIMER.gif)](https://decimer.ai)
+<h2 align="center">Part of the DECIMER Project</h2>
 
-# More about Us
+<p align="center">
+  <a href="https://decimer.ai">
+    <img src="https://github.com/Kohulan/DECIMER-Image-to-SMILES/raw/master/assets/DECIMER.gif" alt="DECIMER Logo" width="400">
+  </a>
+</p>
 
-[![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/blob/master/assets/CheminfGit.png?raw=true)](https://cheminf.uni-jena.de)
+<h2 align="center">About Us</h2>
 
-![Alt](https://repobeats.axiom.co/api/embed/c66cc0ff5bc3ae91ccc8a3f7ed20eb05c735d753.svg "Repobeats analytics image")
+<p align="center">
+  <a href="https://cheminf.uni-jena.de">
+    <img src="https://github.com/Kohulan/DECIMER-Image-to-SMILES/blob/master/assets/CheminfGit.png?raw=true" alt="Cheminformatics and Computational Metabolomics Group" width="300">
+  </a>
+</p>
+
+## Citation
+
+<blockquote>
+Rajan, K., Zielesny, A. & Steinbeck, C. STOUT: SMILES to IUPAC names using neural machine translation. J Cheminform 13, 34 (2021). https://doi.org/10.1186/s13321-021-00512-4
+</blockquote>
+
+## Model Card
+
+<blockquote>
+Rajan, K., Steinbeck, C., & Zielesny, A. (2024). STOUT V2 - Model library. Zenodo. https://doi.org/10.5281/zenodo.13318286
+</blockquote>
+
+<h2 align="center">Repository Analytics</h2>
+
+<p align="center">
+  <img src="https://repobeats.axiom.co/api/embed/c66cc0ff5bc3ae91ccc8a3f7ed20eb05c735d753.svg" alt="Repobeats analytics image">
+</p>
+
+<hr>
+
+<p align="center">
+  Made with ❤️ by the <a href="https://cheminf.uni-jena.de">Steinbeck Group</a> 
+</p>
