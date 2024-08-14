@@ -6,9 +6,12 @@ This helps to reduce the clutter and for faster inference functions.
 
 import tensorflow as tf
 import os
+import sys
 import pickle
-import transformer_model_4_repack as nmt_model_transformer
 import helper
+import transformer_model_4_repack as nmt_model_transformer
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 print(tf.__version__)
 
@@ -18,6 +21,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 print(tf.__version__)
 
 # Always select a GPU if available
+
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 # Scale memory growth as needed
@@ -115,6 +119,7 @@ class Translator(tf.Module):
 
         output_array = tf.TensorArray(dtype=tf.int64, size=0, dynamic_size=True)
         output_array = output_array.write(0, start)
+        confidence_array = tf.TensorArray(dtype=tf.float32, size=0, dynamic_size=True)
 
         for t in tf.range(targ_max_length):
             output = tf.transpose(output_array.stack())
@@ -138,13 +143,17 @@ class Translator(tf.Module):
 
             predicted_id = tf.argmax(predictions, axis=-1)
 
+            confidence = predictions[0, 0, int(predicted_id[0, 0])]
+            output_array = output_array.write(t + 1, predicted_id[0])
+            confidence_array = confidence_array.write(t + 1, confidence)
+
             output_array = output_array.write(t + 1, predicted_id[0])
 
             if predicted_id == end:
                 break
         output = tf.transpose(output_array.stack())
 
-        return output, sentence
+        return output, confidence_array.stack()
 
 
 # Create an instance of this Translator class
@@ -177,7 +186,7 @@ class ExportTranslator(tf.Module):
             tf.Tensor[tf.int64]: predicted output as an array.
         """
 
-        (result, tokens) = self.translator(sentence)
+        result = self.translator(sentence)
 
         return result
 

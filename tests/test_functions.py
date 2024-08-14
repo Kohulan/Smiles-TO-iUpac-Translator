@@ -1,4 +1,3 @@
-import pytest
 from STOUT import translate_forward, translate_reverse
 
 

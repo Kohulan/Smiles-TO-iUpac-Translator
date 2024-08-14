@@ -4,7 +4,7 @@ from stout import translate_forward, translate_reverse
 # STOUT - IUPAC name to SMILES example
 
 file_iupac = open(
-    "IUPAC_names_test.txt", "r"
+    "test_data/IUPAC_names_test.txt", "r"
 )  # file is available in the Github repository
 file_out = open("SMILES_predictions", "w")
 
@@ -17,7 +17,9 @@ file_out.flush()
 file_out.close()
 
 # STOUT - SMILES to IUPAC names example
-file_smiles = open("SMILES_test.txt", "r")  # file is available in the Github repository
+file_smiles = open(
+    "test_data/SMILES_test.txt", "r"
+)  # file is available in the Github repository
 file_out = open("IUPAC_predictions", "w")
 
 for i, line in enumerate(file_smiles):

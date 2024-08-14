@@ -1,101 +1,107 @@
-import os
 import tensorflow as tf
-import tensorflow.keras as keras
 import re
-import unicodedata
 import numpy as np
 import pystow
+from typing import List, Tuple, Dict
 import zipfile
-from jpype import startJVM, getDefaultJVMPath
-from jpype import JClass, JVMNotFoundException, isJVMStarted
+from rdkit import Chem
 
-# Start JVM to use CDK in python
-try:
-    jvmPath = getDefaultJVMPath()
-except JVMNotFoundException:
-    print(
-        "If you see this message, for some reason JPype",
-        "cannot find jvm.dll.",
-        "This indicates that the environment varibale JAVA_HOME",
-        "is not set properly.",
-        "You can set it or set it manually in the code",
-    )
-    jvmPath = "Define/path/or/set/JAVA_HOME/variable/properly"
-if not isJVMStarted():
-    cdk_path = "https://github.com/cdk/cdk/releases/download/cdk-2.8/cdk-2.8.jar"
-    jar_path = str(pystow.join("STOUT-V2")) + "/cdk-2.8.jar"
 
-    if not os.path.exists(jar_path):
-        jar_path = pystow.ensure("STOUT-V2", url=cdk_path)
+def get_canonical(smiles: str) -> str:
+    """
+    Generate canonical SMILES representation from a given SMILES string.
 
-    startJVM(jvmPath, "-ea", "-Djava.class.path=" + str(jar_path))
-
-cdk_base = "org.openscience.cdk"
-
-# Converts the unicode file to ascii
-def unicode_to_ascii(s: str) -> str:
-    """Converts a unicode string to an ASCII string
+    This function takes a SMILES string as input and generates its canonical representation using the RDKit library.
+    If the input SMILES string is valid, it returns the canonical SMILES representation; otherwise, it returns
+    "Invalid SMILES string".
 
     Args:
-        s (str): Takes a string in unicode format.
+        smiles (str): The input SMILES string.
 
     Returns:
-        str: returns a ASCII formatted string.
+        str: The canonical SMILES representation of the input molecule.
+
+    Note:
+        - The canonical SMILES representation is generated using RDKit's MolToSmiles function with kekuleSmiles
+          set to True and isomericSmiles set to True.
+        - If the input SMILES string is invalid (cannot be converted to a molecule), the function returns
+          None.
     """
+    mol = Chem.MolFromSmiles(smiles, sanitize=False)
+    if mol:
+        canonicalSMILES = Chem.MolToSmiles(mol, kekuleSmiles=True, isomericSmiles=True)
+        return canonicalSMILES
+    else:
+        return None
 
-    return "".join(
-        c for c in unicodedata.normalize("NFD", s) if unicodedata.category(c) != "Mn"
-    )
 
+def preprocess_input(input_string: str) -> str:
+    """
+    Preprocess input string for a natural language processing task.
 
-def preprocess_sentence(w: str) -> str:
-    """Takes in a sentence, removes white spaces and generates a clean sentence. At the begining of the sentesnce a <start> token will be added
-    and at the end an <end> token will be added and the modified sentence will be returned.
+    This function takes an input string and adds special start and end tokens ("<start>" and "<end>") to it to
+    indicate the beginning and end of the input sequence for a natural language processing task.
 
     Args:
-        w (str): input sentence to be modified.
+        input_string (str): The input string to be preprocessed.
 
     Returns:
-        str: modified sentence with start and end tokens.
+        str: The preprocessed input string with start and end tokens added.
     """
-    w = unicode_to_ascii(w.strip())
-
-    # creating a space between a word and the punctuation following it
-    # eg: "he is a boy." => "he is a boy ."
-    # Reference:- https://stackoverflow.com/questions/3645931/python-padding-punctuation-with-white-spaces-keeping-punctuation
-    w = re.sub(r"([?.!,¿])", r" \1 ", w)
-    w = re.sub(r'[" "]+', " ", w)
-
-    # replacing everything with space except (a-z, A-Z, ".", "?", "!", ",")
-    # w = re.sub(r"[^a-zA-Z?.!,¿]+", " ", w)
-
-    w = w.strip()
-
-    # adding a start and an end token to the sentence
-    # so that the model know when to start and stop predicting.
-    w = "<start> " + w + " <end>"
-    return w
+    input_string = "<start> " + input_string + " <end>"
+    return input_string
 
 
-def get_smiles_cdk(smiles: str) -> str:
-    """This function takes the user input SMILES and Canonicalize it
-       using the CDK Canonicalisation algorthim.
+def split_smiles(SMILES: str) -> str:
+    """
+    Splits a SMILES string into individual characters separated by spaces.
 
     Args:
-        smiles (string): SMILES string given by the user.
+        SMILES (str): The input SMILES string to be split.
 
     Returns:
-        smiles (string): Canonicalised and kekulized SMILES using the CDK.
+        str: The tokenized SMILES string where each character is separated by a space.
 
+    Example:
+        >>> split_smiles('CCO')
+        'C C O'
     """
-    cdk_base = "org.openscience.cdk"
-    SCOB = JClass(cdk_base + ".DefaultChemObjectBuilder")
-    SmiFlavour = JClass(cdk_base + ".smiles.SmiFlavor")
-    SmilesGenerator = JClass(cdk_base + ".smiles.SmilesGenerator")(SmiFlavour.Absolute)
-    SmilesParser = JClass(cdk_base + ".smiles.SmilesParser")(SCOB.getInstance())
-    molecule = SmilesParser.parseSmiles(smiles)
-    CanSMILES = SmilesGenerator.create(molecule)
-    return CanSMILES
+    SMILES = SMILES.replace("\\/", "/")
+    canonical_SMILES = get_canonical(SMILES)
+    if canonical_SMILES:
+        splitted_list = list(canonical_SMILES)
+        tokenized_SMILES = re.sub(
+            r"\s+(?=[a-z])", "", " ".join(map(str, splitted_list))
+        )
+        return tokenized_SMILES
+
+
+def split_iupac(IUPACName: str) -> str:
+    """
+    Splits an IUPAC name into individual characters separated by spaces,
+    replacing spaces within the IUPAC name with a special character (§).
+
+    Args:
+        IUPACName (str): The input IUPAC name to be split.
+
+    Returns:
+        str: The tokenized IUPAC name where each character is separated by a space and
+             spaces within the name are replaced with '§'.
+
+    Raises:
+        ValueError: If the IUPAC name cannot be processed.
+
+    Example:
+        >>> split_iupac('1,3,7-trimethylpurine-2,6-dione')
+        '1 , 3 , 7 - t r i m e t h y l p u r i n e - 2 , 6 - d i o n e'
+    """
+    try:
+        splitted_list = list(IUPACName.replace(" ", "§"))
+        tokenized_IUPACname = " ".join(map(str, splitted_list))
+        return tokenized_IUPACname
+    except Exception as e:
+        print(e)
+        print(IUPACName)
 
 
 def tokenize_input(input_SMILES: str, inp_lang, inp_max_length: int) -> np.array:
@@ -111,9 +117,9 @@ def tokenize_input(input_SMILES: str, inp_lang, inp_max_length: int) -> np.array
         tokenized_input (np.array): The SMILES get split into meaningful chunks
         and gets converted into meaningful tokens. The tokens are arrays.
     """
-    sentence = preprocess_sentence(input_SMILES)
+    sentence = preprocess_input(input_SMILES)
     inputs = [inp_lang.word_index[i] for i in sentence.split(" ")]
-    tokenized_input = keras.preprocessing.sequence.pad_sequences(
+    tokenized_input = tf.keras.preprocessing.sequence.pad_sequences(
         [inputs], maxlen=inp_max_length, padding="post"
     )
 
@@ -121,35 +127,87 @@ def tokenize_input(input_SMILES: str, inp_lang, inp_max_length: int) -> np.array
 
 
 def detokenize_output(predicted_array: np.array, targ_lang) -> str:
-    """This function takes a predited input array and returns
-       a IUPAC name by detokenizing the input.
+    """
+    Detokenize the predicted output array.
+
+    This function takes a predicted output array, typically generated during natural language processing tasks,
+    and detokenizes it using the target language index to word mapping. It removes special tokens like "<start>"
+    and "<end>", and replaces any custom tokens such as "§" with spaces.
 
     Args:
-        predicted_array (np.array): The predicted_array is returned by the model.
-        targ_lang: keras_preprocessing.text.Tokenizer object with target language.
+        predicted_array (np.array): The predicted output array, usually containing token indices.
+        targ_lang: The target language mapping from index to word.
 
     Returns:
-        prediction (str): The predicted array gets detokenized by the tokenizer,
-        The unnessary spaces, start and the end tokens will bve removed and
-        a proper IUPAC name is returned in a string format.
+        str: The detokenized prediction as a single string.
+
+    Note:
+        - The function iterates through the predicted array and maps each token index to its corresponding word
+          using the target language mapping.
+        - Special tokens "<start>" and "<end>" are removed from the detokenized output.
+        - Custom tokens, such as "§", are replaced with spaces.
     """
     outputs = [targ_lang.index_word[i] for i in predicted_array[0].numpy()]
     prediction = (
-        " ".join([str(elem) for elem in outputs])
-        .replace("<start> ", "")
-        .replace(" <end>", "")
-        .replace(" ", "")
+        "".join([str(elem) for elem in outputs])
+        .replace("§", " ")
+        .replace("<start>", "")
+        .replace("<end>", "")
     )
-
     return prediction
 
 
-def create_look_ahead_mask(size):
+def detokenize_output_add_confidence(
+    predicted_array: tf.Tensor,
+    confidence_array: tf.Tensor,
+    targ_lang: Dict,
+) -> List[Tuple[str, float]]:
+    """
+    This function takes the predicted array of tokens as well as the confidence values
+    returned by the Transformer Decoder and returns a list of tuples
+    that contain each token and the confidence value.
+
+    Args:
+        predicted_array (tf.Tensor): Transformer Decoder output array (predicted tokens)
+
+    Returns:
+        str: SMILES string
+    """
+    prediction_with_confidence = [
+        (
+            targ_lang.index_word[predicted_array[0].numpy()[i]],
+            confidence_array[i].numpy(),
+        )
+        for i in range(len(confidence_array))
+    ]
+    prediction_with_confidence_ = prediction_with_confidence[1:-1]
+    return prediction_with_confidence_
+
+
+def create_look_ahead_mask(size: int) -> tf.Tensor:
+    """
+    Creates a look-ahead mask for masking future tokens in a sequence.
+
+    Args:
+        size (int): The size of the mask (sequence length).
+
+    Returns:
+        tf.Tensor: A look-ahead mask tensor of shape (size, size).
+    """
     mask = 1 - tf.linalg.band_part(tf.ones((size, size)), -1, 0)
     return mask  # (seq_len, seq_len)
 
 
-def create_padding_mask(seq):
+def create_padding_mask(seq: tf.Tensor) -> tf.Tensor:
+    """
+    Creates a padding mask for a given sequence.
+
+    Args:
+        seq (tf.Tensor): The input sequence tensor.
+
+    Returns:
+        tf.Tensor: A padding mask tensor of shape (batch_size, 1, 1, seq_len).
+    """
     seq = tf.cast(tf.math.equal(seq, 0), tf.float32)
 
     # add extra dimensions to add the padding
@@ -157,7 +215,17 @@ def create_padding_mask(seq):
     return seq[:, tf.newaxis, tf.newaxis, :]  # (batch_size, 1, 1, seq_len)
 
 
-def create_masks(inp, tar):
+def create_masks(inp: tf.Tensor, tar: tf.Tensor) -> tuple:
+    """
+    Creates the necessary masks for the Transformer model.
+
+    Args:
+        inp (tf.Tensor): The input tensor for the encoder.
+        tar (tf.Tensor): The target tensor for the decoder.
+
+    Returns:
+        tuple: A tuple containing the encoder padding mask, combined mask, and decoder padding mask.
+    """
     # Encoder padding mask
     enc_padding_mask = create_padding_mask(inp)
 
