@@ -129,9 +129,11 @@ print(f"🔬 SMILES of {IUPAC_name} is: {SMILES}")
 ## Citation
 
 <blockquote>
-Rajan, K., Zielesny, A. & Steinbeck, C. STOUT: SMILES to IUPAC names using neural machine translation. J Cheminform 13, 34 (2021). https://doi.org/10.1186/s13321-021-00512-4
+1. Rajan, K., Zielesny, A. & Steinbeck, C. STOUT: SMILES to IUPAC names using neural machine translation. J Cheminform 13, 34 (2021). https://doi.org/10.1186/s13321-021-00512-4
 </blockquote>
-
+<blockquote>
+2. Rajan K, Zielesny A, Steinbeck C. STOUT V2.0: SMILES to IUPAC name conversion using transformer models. ChemRxiv. 2024; https://doi.org/10.26434/chemrxiv-2024-089vs
+</blockquote>
 ## Model Card
 
 <blockquote>
