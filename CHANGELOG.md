@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.2.0](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/compare/v2.1.0...v2.2.0) (2024-10-14)
+
+
+### Features
+
+* include training information README.md ([edb150b](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/commit/edb150b7f71e75af3070271a69a1287359d41ffc))
+
+
+### Documentation
+
+* update citation README.md ([9454d91](https://github.com/Kohulan/Smiles-TO-iUpac-Translator/commit/9454d91c78564819124ee5c6b46c9e305fdfabbc))
+
 ## 2.1.0 (2024-08-14)
 
 
