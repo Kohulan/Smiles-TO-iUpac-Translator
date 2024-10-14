@@ -2,7 +2,7 @@
   <br>
   <a href="https://github.com/Kohulan/Smiles-TO-iUpac-Translator"><img src="https://github.com/Kohulan/Smiles-TO-iUpac-Translator/blob/development/docs/_static/STOUT.png?raw=true" alt="STOUT Logo" width="400"></a>
   <br>
-V2.0
+  STOUT V2.0
   <br>
 </h1>
 
@@ -47,6 +47,7 @@ V2.0
   <a href="#key-features">Key Features</a> •
   <a href="#installation">Installation</a> •
   <a href="#how-to-use">How To Use</a> •
+  <a href="#training-stout">Training STOUT</a> •
   <a href="#acknowledgements">Acknowledgements</a> •
   <a href="#citation">Citation</a>
 </p>
@@ -57,33 +58,41 @@ V2.0
 
 ## Key Features
 
-<ul>
-  <li>🧪 Translate SMILES to IUPAC names</li>
-  <li>🔬 Convert IUPAC names back to valid SMILES strings</li>
-  <li>🤖 Powered by advanced transformer models</li>
-  <li>💻 Cross-platform support (Linux, macOS, Windows via Ubuntu shell)</li>
-  <li>🚀 High-performance chemical nomenclature translation</li>
-</ul>
+- 🧪 Translate SMILES to IUPAC names
+- 🔬 Convert IUPAC names back to valid SMILES strings
+- 🤖 Powered by advanced transformer models
+- 💻 Cross-platform support (Linux, macOS, Windows via Ubuntu shell)
+- 🚀 High-performance chemical nomenclature translation
+- 🧠 Training code available for custom model development
 
 ## Installation
 
-<p>Choose your preferred installation method:</p>
+Choose your preferred installation method:
 
 <details>
 <summary><b>📦 PyPI Installation</b></summary>
-<pre><code>pip install STOUT-pypi</code></pre>
+
+```bash
+pip install STOUT-pypi
+```
 </details>
 
 <details>
 <summary><b>🐍 Conda Environment Setup</b></summary>
-<pre><code>conda create --name STOUT python=3.10 
+
+```bash
+conda create --name STOUT python=3.10 
 conda activate STOUT
-conda install -c decimer stout-pypi</code></pre>
+conda install -c decimer stout-pypi
+```
 </details>
 
 <details>
 <summary><b>📥 Direct Repository Installation</b></summary>
-<pre><code>pip install git+https://github.com/Kohulan/Smiles-TO-iUpac-Translator.git</code></pre>
+
+```bash
+pip install git+https://github.com/Kohulan/Smiles-TO-iUpac-Translator.git
+```
 </details>
 
 ## How To Use
@@ -101,6 +110,23 @@ IUPAC_name = "1,3,7-trimethylpurine-2,6-dione"
 SMILES = translate_reverse(IUPAC_name)
 print(f"🔬 SMILES of {IUPAC_name} is: {SMILES}")
 ```
+
+## Training STOUT
+
+For researchers interested in training their own STOUT models or understanding the training process, we provide the training code in a separate repository:
+
+[STOUT Training Repository](https://github.com/Kohulan/IWOMI_Tutorials/tree/IWOMI_2024/STOUT_Training)
+
+This repository contains the necessary scripts and instructions for training STOUT models. Please note that training requires significant computational resources and a large dataset. Refer to the README in the training repository for detailed instructions.
+
+## Model Card
+
+> Rajan, K., Steinbeck, C., & Zielesny, A. (2024). STOUT V2 - Model library (Version v3). Zenodo. https://doi.org/10.5281/zenodo.13318286
+
+### Model Use
+- Primary intended uses: Translation between SMILES and IUPAC names for chemical compounds
+- Primary intended users: Chemists, researchers, and developers in the field of cheminformatics
+- Out-of-scope use cases: Not intended for critical applications where 100% accuracy is required
 
 ## Acknowledgements
 
@@ -128,25 +154,17 @@ print(f"🔬 SMILES of {IUPAC_name} is: {SMILES}")
 
 ## Citation
 
-<blockquote>
 1. Rajan, K., Zielesny, A. & Steinbeck, C. STOUT: SMILES to IUPAC names using neural machine translation. J Cheminform 13, 34 (2021). https://doi.org/10.1186/s13321-021-00512-4
-</blockquote>
-<blockquote>
+
 2. Rajan K, Zielesny A, Steinbeck C. STOUT V2.0: SMILES to IUPAC name conversion using transformer models. ChemRxiv. 2024; https://doi.org/10.26434/chemrxiv-2024-089vs
-</blockquote>
-## Model Card
 
-<blockquote>
-Rajan, K., Steinbeck, C., & Zielesny, A. (2024). STOUT V2 - Model library. Zenodo. https://doi.org/10.5281/zenodo.13318286
-</blockquote>
-
-<h2 align="center">Repository Analytics</h2>
+## Repository Analytics
 
 <p align="center">
   <img src="https://repobeats.axiom.co/api/embed/c66cc0ff5bc3ae91ccc8a3f7ed20eb05c735d753.svg" alt="Repobeats analytics image">
 </p>
 
-<hr>
+---
 
 <p align="center">
   Made with ❤️ by the <a href="https://cheminf.uni-jena.de">Steinbeck Group</a> 
